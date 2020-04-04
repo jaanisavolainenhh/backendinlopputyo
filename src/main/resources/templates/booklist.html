@@ -33,7 +33,7 @@
 		<tr th:each="book : ${books}">
 			<td th:text="${book.title}">Title</td>
 			<td th:text="${book.author}">Author</td>
-			<td th:text="${book.category.name}">Category</td>
+			<td th:text="${book.lainatyyppi.name}">Category</td>
 			<td th:text="${book.isbn}">ISBN</td>
 			<td th:text="${book.year}">Year</td>
 			<td th:text="${book.price}">Price</td>
