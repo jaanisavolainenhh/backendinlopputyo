@@ -15,13 +15,13 @@
 	</div>
 	<table class="table table-striped">
 		<tr>
-			<td><h4>Title</h4></td>
-			<td><h4>Author</h4></td>
-			<td><h4>Category</h4></td>
-			<td><h4>ISBN</h4></td>
-			<td><h4>Year</h4></td>
-			<td><h4>Price</h4></td>
-			<td></td>
+			<td><h4>Lainaaja</h4></td>
+			<td><h4>Lainan Määrä</h4></td>
+			<td><h4>Lainan tyyppi</h4></td>
+<!-- 			<td><h4>ISBN</h4></td> -->
+<!-- 			<td><h4>Year</h4></td> -->
+<!-- 			<td><h4>Price</h4></td> -->
+<!-- 			<td></td> -->
 			<td>
 
 				<form th:action="@{/logout}" method="post">
@@ -31,12 +31,12 @@
 			</td>
 		</tr>
 		<tr th:each="book : ${books}">
-			<td th:text="${book.title}">Title</td>
-			<td th:text="${book.author}">Author</td>
-			<td th:text="${book.lainatyyppi.name}">Category</td>
-			<td th:text="${book.isbn}">ISBN</td>
-			<td th:text="${book.year}">Year</td>
-			<td th:text="${book.price}">Price</td>
+			<td th:text="${book.lainanOttaja}">Nimi</td>
+			<td th:text="${book.lainanMaara}">Määrä</td>
+			<td th:text="${book.lainatyyppi.name}">Lainatyyppi</td>
+<!-- 			<td th:text="${book.isbn}">ISBN</td> -->
+<!-- 			<td th:text="${book.year}">Year</td> -->
+<!-- 			<td th:text="${book.price}">Price</td> -->
 			<td sec:authorize="hasAuthority('ADMIN')"><a
 				th:href="@{/delete/{id}(id=${book.id})}"><button
 						class="btn btn-danger">Delete</button></a></td>

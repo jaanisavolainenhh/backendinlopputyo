@@ -31,19 +31,19 @@ public class LainaController {
 		return "index";
 	}
 
-	@GetMapping("/booklist")
+	@GetMapping("/Lainalista")
 	public String booklistGet(Model model) {
 		model.addAttribute("books", repo.findAll());
 		return "booklist";
 	}
 	
 	//Resti
-	@RequestMapping(value = "/books", method = RequestMethod.GET)
+	@RequestMapping(value = "/lainat", method = RequestMethod.GET)
 	public @ResponseBody List<Laina> bookListRest() {
 		return (List<Laina>) repo.findAll();
 	}
 	
-	@RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/laina/{id}", method = RequestMethod.GET)
 	public @ResponseBody Optional<Laina> bookRest(@PathVariable("id") Long id) {
 		return repo.findById(id);
 	}
@@ -60,20 +60,20 @@ public class LainaController {
 		return "redirect:../booklist";
 	}
 	
-	@GetMapping("/addbook")
+	@GetMapping("/addlaina")
 	public String addbookGet(Model model) {
 		model.addAttribute("book", new Laina());
 		model.addAttribute("categories", repo2.findAll());
 		return "addbook";
 	}
 	
-	@PostMapping("/savebook")
+	@PostMapping("/savelaina")
 	public String savebookPost(Laina book) {
 		repo.save(book);
 		return "redirect:booklist";
 	}
 	
-	@GetMapping("/editbook/{id}")
+	@GetMapping("/editlaina/{id}")
 	public String editbookGet(@PathVariable("id") Long id, Model model) {
 		Laina book = repo.findById(id).get();
 		model.addAttribute("book", book);
