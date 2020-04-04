@@ -17,18 +17,19 @@ public class Lainatyyppi {
 	private long id;
 	private String name;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "lainatyyppi")
 	@JsonIgnore
 	private List<Laina> lainat;
 
 
 
-	public List<Laina> getBooks() {
+	public List<Laina> getLainat() {
 		return lainat;
 	}
-	public void setBooks(List<Laina> books) {
-		this.lainat = books;
+	public void setLainat(List<Laina> lainat) {
+		this.lainat = lainat;
 	}
+
 	public long getId() {
 		return id;
 	}

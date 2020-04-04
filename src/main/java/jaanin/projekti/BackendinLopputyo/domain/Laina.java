@@ -24,24 +24,17 @@ private double price;
 private Lainatyyppi lainatyyppi;
 
 
-public Laina(String title, String author, int year, String isbn, double price, Lainatyyppi category) {
+public Laina(String title, String author, int year, String isbn, double price, Lainatyyppi lainatyyppi) {
 	super();
 	this.title = title;
 	this.author = author;
 	this.year = year;
 	this.isbn = isbn;
 	this.price = price;
-	this.lainatyyppi = category;
+	this.lainatyyppi = lainatyyppi;
 }
 
-public Lainatyyppi getCategory() {
-	return lainatyyppi;
-}
-//
 
-public void setCategory(Lainatyyppi category) {
-	this.lainatyyppi = category;
-}
 
 public Long getId() {
 	return id;
@@ -55,6 +48,18 @@ public String getTitle() {
 public void setTitle(String title) {
 	this.title = title;
 }
+public Lainatyyppi getLainatyyppi() {
+	return lainatyyppi;
+}
+
+
+
+public void setLainatyyppi(Lainatyyppi lainatyyppi) {
+	this.lainatyyppi = lainatyyppi;
+}
+
+
+
 public String getAuthor() {
 	return author;
 }
