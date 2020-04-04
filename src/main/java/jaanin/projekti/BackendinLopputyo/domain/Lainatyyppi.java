@@ -1,4 +1,4 @@
-package jaanin.projekti.FrontinLopputyo.domain;
+package jaanin.projekti.BackendinLopputyo.domain;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
-public class Category {
+public class Lainatyyppi {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -19,15 +19,15 @@ public class Category {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	@JsonIgnore
-	private List<Book> books;
+	private List<Laina> lainat;
 
 
 
-	public List<Book> getBooks() {
-		return books;
+	public List<Laina> getBooks() {
+		return lainat;
 	}
-	public void setBooks(List<Book> books) {
-		this.books = books;
+	public void setBooks(List<Laina> books) {
+		this.lainat = books;
 	}
 	public long getId() {
 		return id;
@@ -41,16 +41,16 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Category(String name) {
+	public Lainatyyppi(String name) {
 		super();
 		this.name = name;
 	}
 	
 	@Override
 	public String toString() {
-		return "Category [name=" + name + "]";
+		return "Lainatyyppi [name=" + name + "]";
 	}
-	public Category()
+	public Lainatyyppi()
 	{
 		
 	}

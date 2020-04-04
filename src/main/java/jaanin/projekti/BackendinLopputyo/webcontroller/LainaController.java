@@ -1,4 +1,4 @@
-package jaanin.projekti.FrontinLopputyo.webcontroller;
+package jaanin.projekti.BackendinLopputyo.webcontroller;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import jaanin.projekti.FrontinLopputyo.domain.Book;
-import jaanin.projekti.FrontinLopputyo.domain.BookRepository;
-import jaanin.projekti.FrontinLopputyo.domain.CategoryRepository;
+import jaanin.projekti.BackendinLopputyo.domain.Laina;
+import jaanin.projekti.BackendinLopputyo.domain.LainaRepository;
+import jaanin.projekti.BackendinLopputyo.domain.LainatyyppiRepository;
 
 
 @Controller
-public class BookController {
+public class LainaController {
 
 	@Autowired
-	private BookRepository repo;
+	private LainaRepository repo;
 	@Autowired
-	private CategoryRepository repo2;
+	private LainatyyppiRepository repo2;
 	
 	@GetMapping("/index")
 	public String indexGet(Model model) {
@@ -39,12 +39,12 @@ public class BookController {
 	
 	//Resti
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
-	public @ResponseBody List<Book> bookListRest() {
-		return (List<Book>) repo.findAll();
+	public @ResponseBody List<Laina> bookListRest() {
+		return (List<Laina>) repo.findAll();
 	}
 	
 	@RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
-	public @ResponseBody Optional<Book> bookRest(@PathVariable("id") Long id) {
+	public @ResponseBody Optional<Laina> bookRest(@PathVariable("id") Long id) {
 		return repo.findById(id);
 	}
 	
@@ -62,20 +62,20 @@ public class BookController {
 	
 	@GetMapping("/addbook")
 	public String addbookGet(Model model) {
-		model.addAttribute("book", new Book());
+		model.addAttribute("book", new Laina());
 		model.addAttribute("categories", repo2.findAll());
 		return "addbook";
 	}
 	
 	@PostMapping("/savebook")
-	public String savebookPost(Book book) {
+	public String savebookPost(Laina book) {
 		repo.save(book);
 		return "redirect:booklist";
 	}
 	
 	@GetMapping("/editbook/{id}")
 	public String editbookGet(@PathVariable("id") Long id, Model model) {
-		Book book = repo.findById(id).get();
+		Laina book = repo.findById(id).get();
 		model.addAttribute("book", book);
 		model.addAttribute("categories", repo2.findAll());
 		return "editbook";

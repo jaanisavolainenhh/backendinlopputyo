@@ -9,10 +9,10 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>backend.hh</groupId>
-	<artifactId>bookstore</artifactId>
+	<groupId>jaanin.projekti</groupId>
+	<artifactId>BackendinLopputyo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>bookstore</name>
+	<name>BackendinLopputyo</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

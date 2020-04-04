@@ -1,4 +1,4 @@
-package jaanin.projekti.FrontinLopputyo.webcontroller;
+package jaanin.projekti.BackendinLopputyo.webcontroller;
 
 import javax.validation.Valid;
 
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import jaanin.projekti.FrontinLopputyo.domain.SignupForm;
-import jaanin.projekti.FrontinLopputyo.domain.User;
-import jaanin.projekti.FrontinLopputyo.domain.UserRepository;
+import jaanin.projekti.BackendinLopputyo.domain.SignupForm;
+import jaanin.projekti.BackendinLopputyo.domain.User;
+import jaanin.projekti.BackendinLopputyo.domain.UserRepository;
 
 
 @Controller

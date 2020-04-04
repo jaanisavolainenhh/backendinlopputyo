@@ -1,4 +1,4 @@
-package jaanin.projekti.FrontinLopputyo;
+package jaanin.projekti.BackendinLopputyo;
 
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import jaanin.projekti.FrontinLopputyo.webcontroller.UserDetailServiceImpl;
+import jaanin.projekti.BackendinLopputyo.webcontroller.UserDetailServiceImpl;
 
 
 

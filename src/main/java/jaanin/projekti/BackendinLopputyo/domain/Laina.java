@@ -1,4 +1,4 @@
-package jaanin.projekti.FrontinLopputyo.domain;
+package jaanin.projekti.BackendinLopputyo.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,11 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
-public class Book {
+public class Laina {
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 private Long id;
@@ -23,27 +20,27 @@ private double price;
 
 @ManyToOne	
 //@JsonIgnore //Siirretty tämä Categoryyn jotta saataisiin "oikea" data kirjasta jossa myös categoria.
-@JoinColumn(name = "category")
-private Category category;
+@JoinColumn(name = "lainatyyppi")
+private Lainatyyppi lainatyyppi;
 
 
-public Book(String title, String author, int year, String isbn, double price, Category category) {
+public Laina(String title, String author, int year, String isbn, double price, Lainatyyppi category) {
 	super();
 	this.title = title;
 	this.author = author;
 	this.year = year;
 	this.isbn = isbn;
 	this.price = price;
-	this.category = category;
+	this.lainatyyppi = category;
 }
 
-public Category getCategory() {
-	return category;
+public Lainatyyppi getCategory() {
+	return lainatyyppi;
 }
 //
 
-public void setCategory(Category category) {
-	this.category = category;
+public void setCategory(Lainatyyppi category) {
+	this.lainatyyppi = category;
 }
 
 public Long getId() {
@@ -83,11 +80,11 @@ public void setPrice(double price) {
 	this.price = price;
 }
 
-public Book() {
+public Laina() {
 }
 @Override
 public String toString() {
-	return "Book [id=" + id + ", title=" + title + ", author=" + author + ", year=" + year + ", isbn=" + isbn
+	return "Laina [id=" + id + ", title=" + title + ", author=" + author + ", year=" + year + ", isbn=" + isbn
 			+ ", price=" + price + "]";
 }
 }

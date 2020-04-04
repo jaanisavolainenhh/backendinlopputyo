@@ -1,4 +1,4 @@
-package jaanin.projekti.FrontinLopputyo.webcontroller;
+package jaanin.projekti.BackendinLopputyo.webcontroller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,14 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import jaanin.projekti.FrontinLopputyo.domain.Category;
-import jaanin.projekti.FrontinLopputyo.domain.CategoryRepository;
+import jaanin.projekti.BackendinLopputyo.domain.Lainatyyppi;
+import jaanin.projekti.BackendinLopputyo.domain.LainatyyppiRepository;
 
 @Controller
 public class LainatyyppiController {
 
 	@Autowired
-	private CategoryRepository repo;
+	private LainatyyppiRepository repo;
 	
 	
 	@GetMapping("/categorylist")
@@ -27,12 +27,12 @@ public class LainatyyppiController {
 
 	@GetMapping("/addcategory")
 	public String addbookGet(Model model) {
-		model.addAttribute("category", new Category());
+		model.addAttribute("category", new Lainatyyppi());
 		return "addcategory";
 	}
 	
 	@PostMapping("/savecategory")
-	public String saveCategory(Category category) {
+	public String saveCategory(Lainatyyppi category) {
 		repo.save(category);
 		return "redirect:categorylist";
 	}

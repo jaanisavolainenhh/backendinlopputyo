@@ -1,4 +1,4 @@
-package jaanin.projekti.FrontinLopputyo.domain;
+package jaanin.projekti.BackendinLopputyo.domain;
 
 import javax.validation.constraints.Size;
 

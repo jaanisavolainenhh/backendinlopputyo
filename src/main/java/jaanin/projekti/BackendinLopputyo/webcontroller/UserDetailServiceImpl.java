@@ -1,4 +1,4 @@
-package jaanin.projekti.FrontinLopputyo.webcontroller;
+package jaanin.projekti.BackendinLopputyo.webcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import jaanin.projekti.FrontinLopputyo.domain.User;
-import jaanin.projekti.FrontinLopputyo.domain.UserRepository;
+import jaanin.projekti.BackendinLopputyo.domain.User;
+import jaanin.projekti.BackendinLopputyo.domain.UserRepository;
 
 
 /**
