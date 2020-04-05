@@ -17,7 +17,6 @@ import jaanin.projekti.BackendinLopputyo.domain.Laina;
 import jaanin.projekti.BackendinLopputyo.domain.LainaRepository;
 import jaanin.projekti.BackendinLopputyo.domain.LainatyyppiRepository;
 
-
 @Controller
 public class LainaController {
 
@@ -25,60 +24,63 @@ public class LainaController {
 	private LainaRepository repo;
 	@Autowired
 	private LainatyyppiRepository repo2;
-	
+
 	@GetMapping("/index")
 	public String indexGet(Model model) {
 		return "index";
 	}
+	// TODO Fixataan nää oikeisiin endpointteihin
 
-	@GetMapping("/Lainalista")
-	public String booklistGet(Model model) {
-		model.addAttribute("books", repo.findAll());
-		return "booklist";
+	@GetMapping("/lainalista")
+	public String lainalistGet(Model model) {
+		model.addAttribute("lainat", repo.findAll());
+		return "lainalista";
 	}
-	
-	//Resti
+
+	// Resti
 	@RequestMapping(value = "/lainat", method = RequestMethod.GET)
-	public @ResponseBody List<Laina> bookListRest() {
+	public @ResponseBody List<Laina> lainaListRest() {
 		return (List<Laina>) repo.findAll();
 	}
-	
+
 	@RequestMapping(value = "/laina/{id}", method = RequestMethod.GET)
-	public @ResponseBody Optional<Laina> bookRest(@PathVariable("id") Long id) {
+	public @ResponseBody Optional<Laina> lainaRest(@PathVariable("id") Long id) {
 		return repo.findById(id);
 	}
-	
-	
-    @RequestMapping(value="/login")
-    public String login() {	
-        return "login";
-    }	
+
+	@RequestMapping(value = "/login")
+	public String login() {
+		return "login";
+	}
 
 	@GetMapping("/delete/{id}")
-	public String bookDelete(@PathVariable("id") Long id, Model model) {
+	public String lainaDelete(@PathVariable("id") Long id, Model model) {
 		repo.deleteById(id);
-		return "redirect:../booklist";
+		return "redirect:../lainalista";
 	}
-	
+
 	@GetMapping("/addlaina")
-	public String addbookGet(Model model) {
-		model.addAttribute("book", new Laina());
+	public String addlainaGet(Model model) {
+		model.addAttribute("laina", new Laina());
 		model.addAttribute("categories", repo2.findAll());
-		return "addbook";
+		return "addlaina";
 	}
-	
+
 	@PostMapping("/savelaina")
-	public String savebookPost(Laina book) {
-		repo.save(book);
-		return "redirect:booklist";
+	public String savelainaPost(Laina laina) {
+		System.out.println("####################################");
+		laina.toString();
+		System.out.println("####################################");
+
+		repo.save(laina);
+		return "lainalista";
 	}
-	
+
 	@GetMapping("/editlaina/{id}")
-	public String editbookGet(@PathVariable("id") Long id, Model model) {
-		Laina book = repo.findById(id).get();
-		model.addAttribute("book", book);
+	public String editlainaGet(@PathVariable("id") Long id, Model model) {
+		Laina laina = repo.findById(id).get();
+		model.addAttribute("laina", laina);
 		model.addAttribute("categories", repo2.findAll());
-		return "editbook";
+		return "editlaina";
 	}
 }
-

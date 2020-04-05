@@ -30,21 +30,21 @@
 
 			</td>
 		</tr>
-		<tr th:each="book : ${books}">
-			<td th:text="${book.lainanOttaja}">Nimi</td>
-			<td th:text="${book.lainanMaara}">Määrä</td>
-			<td th:text="${book.lainatyyppi.name}">Lainatyyppi</td>
-<!-- 			<td th:text="${book.isbn}">ISBN</td> -->
-<!-- 			<td th:text="${book.year}">Year</td> -->
-<!-- 			<td th:text="${book.price}">Price</td> -->
+		<tr th:each="laina : ${lainat}">
+			<td th:text="${laina.asiakas.nimi}">Nimi</td>
+			<td th:text="${laina.lainanMaara}">Määrä</td>
+			<td th:text="${laina.lainatyyppi.name}">Lainatyyppi</td>
+<!-- 			<td th:text="${laina.isbn}">ISBN</td> -->
+<!-- 			<td th:text="${laina.year}">Year</td> -->
+<!-- 			<td th:text="${laina.price}">Price</td> -->
 			<td sec:authorize="hasAuthority('ADMIN')"><a
-				th:href="@{/delete/{id}(id=${book.id})}"><button
+				th:href="@{/delete/{id}(id=${laina.id})}"><button
 						class="btn btn-danger">Delete</button></a></td>
-			<td><a th:href="@{/editbook/{id}(id=${book.id})}">Edit</a></td>
+			<td><a th:href="@{/editlaina/{id}(id=${laina.id})}">Edit</a></td>
 		</tr>
 	</table>
-	<a href="/addbook"><button class="btn btn-success">Add
-			book</button></a>
+	<a href="/addlaina"><button class="btn btn-success">Add
+			laina</button></a>
 
 </body>
 </html>

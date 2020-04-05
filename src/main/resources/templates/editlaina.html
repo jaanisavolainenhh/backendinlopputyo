@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Edit laina</title>
+</head>
+<body>
+	<h2>Edit laina</h2>
+	<!-- Formissa pitää muistaa kulkea puussa taakse päin (../), jos kuljetaan esim. endpointista /editlaina/1 -> /save -->
+	<form action="#" th:action="@{../savelaina}" th:object="${laina}"
+		method="post">
+		<!-- hidden input lähettää eteenpäin arvoja joita ei haluta näyttää tai/eikä muuttaa -->
+		<input type="hidden" th:field="*{id}" readonly="readonly" /> <label>Asiakas:
+		</label><input type="text" th:field="*{asiakas.nimi}" /><br> <label>Lainan määrä:
+		</label><input type="text" th:field="*{lainanMaara}" /><br> <label>Lainan tyyppi:
+		</label> <select id="deplist" th:field="*{lainatyyppi}" class="form-control">
+			<option th:each="category: ${categories}" th:value="${category.id}"
+				th:text="${category.name}"></option>
+		</select><br>
+		<button type="submit">Submit</button>
+	</form>
+</body>
+</html>

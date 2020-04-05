@@ -16,25 +16,24 @@ public class LainatyyppiController {
 	@Autowired
 	private LainatyyppiRepository repo;
 	
-	
-	@GetMapping("/categorylist")
+	//TODO Fixataan nää oikeisiin endpointteihin
+	@GetMapping("/lainatyyppilist")
 	public String indexGet(Model model) {
 		model.addAttribute("categories", repo.findAll());
-		return "categorylist";
+		return "lainatyyppilista";
 	}
 	
-
 
 	@GetMapping("/addcategory")
 	public String addbookGet(Model model) {
 		model.addAttribute("category", new Lainatyyppi());
-		return "addcategory";
+		return "addlainatyyppi";
 	}
 	
 	@PostMapping("/savecategory")
 	public String saveCategory(Lainatyyppi category) {
 		repo.save(category);
-		return "redirect:categorylist";
+		return "redirect:lainatyyppilist";
 	}
 	
 }
