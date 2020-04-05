@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jaanin.projekti.BackendinLopputyo.domain.AsiakasRepository;
 import jaanin.projekti.BackendinLopputyo.domain.Laina;
 import jaanin.projekti.BackendinLopputyo.domain.LainaRepository;
 import jaanin.projekti.BackendinLopputyo.domain.LainatyyppiRepository;
@@ -24,6 +25,9 @@ public class LainaController {
 	private LainaRepository repo;
 	@Autowired
 	private LainatyyppiRepository repo2;
+	
+	@Autowired
+	private AsiakasRepository repo3;
 
 	@GetMapping("/index")
 	public String indexGet(Model model) {
@@ -81,6 +85,7 @@ public class LainaController {
 		Laina laina = repo.findById(id).get();
 		model.addAttribute("laina", laina);
 		model.addAttribute("categories", repo2.findAll());
+		model.addAttribute("asiakkaat", repo3.findAll());
 		return "editlaina";
 	}
 }

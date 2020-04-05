@@ -10,8 +10,18 @@
 	<form action="#" th:action="@{../savelaina}" th:object="${laina}"
 		method="post">
 		<!-- hidden input lähettää eteenpäin arvoja joita ei haluta näyttää tai/eikä muuttaa -->
+		
+		
 		<input type="hidden" th:field="*{id}" readonly="readonly" /> <label>Asiakas:
-		</label><input type="text" th:field="*{asiakas.nimi}" /><br> <label>Lainan määrä:
+		
+		</label> <select id="deplist" th:field="*{asiakas}" class="form-control">
+			<option th:each="asiakas: ${asiakkaat}" th:value="${asiakas.id}"
+				th:text="${asiakas.nimi}"></option>
+		</select><br>
+		
+		</label>
+<!-- 		<input type="text" th:field="*{asiakas.nimi}" /> -->
+<label>Lainan määrä:
 		</label><input type="text" th:field="*{lainanMaara}" /><br> <label>Lainan tyyppi:
 		</label> <select id="deplist" th:field="*{lainatyyppi}" class="form-control">
 			<option th:each="category: ${categories}" th:value="${category.id}"
