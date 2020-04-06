@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Luotto Vippi, kukkaro joka on aina auki</title>
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- kuvaus sivun sis�ll�st� -->
+<meta name="description" content="Luotto Vippi, kun rahantarve on kova.">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+
+<!-- linkki google-fonttiin -->
+<link
+	href="https://fonts.googleapis.com/css?family=ABeeZee|Audiowide|Orbitron"
+	rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+<link
+	href="http://myy.haaga-helia.fi/~bgh273/DigitaalisetPalvelut/loppusivusto/tyyli.css"
+	rel="stylesheet" type="text/css">
+<link href="/Lopputyo/WebContent/styles.css" rel="stylesheet"
+	type="text/css">
+</head>
+
+<body>
+	<script>
+		function showValMaara(newVal) {
+			document.getElementById("maara").innerHTML = newVal * 100 + "e";
+			LaskeKorko();
+		}
+	</script>
+
+	<script>
+		function showValAika(newVal) {
+			document.getElementById("aika").innerHTML = newVal + " kk";
+			LaskeKorko();
+		}
+	</script>
+
+
+	<script>
+		function keraaData() {
+			console.log(document.getElementById("kulutus1").checked);
+			console.log(document.getElementById("kulutus2").checked);
+			document.getElementById("etunimi1").value = document
+					.getElementById("etunimiID").value;
+			document.getElementById("sukunimi1").value = document
+					.getElementById("sukunimiID").value
+			if (document.getElementById("kulutus1").checked) {
+				document.getElementById("lt").value = "Kulutusluotto";
+			} else {
+				document.getElementById("lt").value = "K�ytt�laina";
+			}
+			document.getElementById("lm").value = document
+					.getElementById("myRange").value * 100;
+			document.getElementById("datat").submit();
+		}
+	</script>
+
+
+	<script>
+		$(document).ready(function() {
+			LaskeKorko();
+			// Activate Carousel with a specified interval
+			$("#myCarousel").carousel({
+				interval : 200
+			});
+
+			// Enable Carousel Indicators
+			$(".item1").click(function() {
+				$("#myCarousel").carousel(0);
+			});
+			$(".item2").click(function() {
+				$("#myCarousel").carousel(1);
+			});
+			$(".item3").click(function() {
+				$("#myCarousel").carousel(2);
+			});
+
+			// Enable Carousel Controls
+			$(".carousel-control-prev").click(function() {
+				$("#myCarousel").carousel("prev");
+			});
+			$(".carousel-control-next").click(function() {
+				$("#myCarousel").carousel("next");
+			});
+		});
+	</script>
+
+	<script>
+		function LaskeKorko() {
+			var aika;
+			var maara;
+			aika = document.getElementById("myRange2").value;
+			maara = document.getElementById("myRange").value * 100;
+			var numero;
+			var korko;
+
+			var hmm = "asdasd";
+
+			if (document.getElementById("kulutus1").checked) {
+				korko = 0.4;
+			} else {
+				korko = 0.6;
+			}
+			;
+			numero = 1 + korko * (aika / 12);
+			document.getElementById("korko").innerHTML = "<b>Kuukausier�:   </b>"
+					+ (numero * maara / aika).toFixed(2) + "e";
+			document.getElementById("todellinen").innerHTML = "<b>Todellinen Hinta:   </b>"
+					+ (numero * maara).toFixed(2) + "e";
+
+		}
+	</script>
+
+	<main> <header>
+		<!-- p��otsikko -->
+		<div class="logo">
+			<a href="hae-lainaa"> <img
+				src="http://myy.haaga-helia.fi/~bgh273/DigitaalisetPalvelut/loppusivusto/logo.png"
+				alt="Firman Logo" id=logo class="logo">
+			</a>
+		</div>
+
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="hae-lainaa">Etusivu</a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link"
+						href="hae-lainaa">Hae Lainaa <span class="sr-only">
+								(current)</span></a></li>
+
+				</ul>
+			</div>
+		</nav>
+
+	</header>
+
+	<article>
+
+
+		<!--  karuselli loppuu-->
+
+
+
+		<p style="color: red">
+			<c:out value="${param.viesti}" />
+		</p>
+		<h2>Lainatarjous</h2>
+
+
+		<!-- Three columns -->
+		<div class="row">
+			<div class="column">
+				<div class="container">
+					<form id="tiedot">
+						Etunimi: <input type="text" name="etunimi" id="etunimiID"><br>
+						Sukunimi: <input type="text" name="sukunimi" id="sukunimiID"><br>
+						Henkil�tunnus: <input type="text" name="lname"><br>
+						Osoite: <input type="text" name="lname"><br>
+						Postinumero: <input type="text" name="lname"><br>
+						Postitoimipaikka: <input type="text" name="lname"><br>
+					</form>
+				</div>
+			</div>
+
+			<div class="column">
+				<div class="slidecontainer2">
+
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-4">100e</div>
+							<div class="col-4" style="text-align: center" id="maara">2
+								000e</div>
+							<div class="col-4" style="text-align: right">4 000e</div>
+						</div>
+
+						<input type="range" min="1" max="40" value="20" class="slider"
+							id="myRange" oninput="showValMaara(this.value)"> <br>
+						<br>
+						<div class="row">
+							<div class="col">6kk</div>
+							<div class="col" style="text-align: center" id="aika">18kk</div>
+							<div class="col" style="text-align: right">36kk</div>
+						</div>
+						<input type="range" min="6" max="36" value="12" class="slider"
+							id="myRange2" oninput="showValAika(this.value)"> <br>
+						<br>
+						<form action="eityhja">
+							<input type="radio" name="kulutus" value="kulutusluotto"
+								checked="checked" id="kulutus1" oninput=LaskeKorko();>
+							Kulutusluotto<br> <input type="radio" name="kulutus"
+								value="k�ytt�laina" id="kulutus2" oninput=LaskeKorko();>
+							K�ytt�laina<br>
+						</form>
+						<br>
+						<div id="korko">
+							<b>Kuukausier�:</b>
+						</div>
+						<div id="todellinen">
+							<b>Todellinen Hinta</b>
+						</div>
+						<br>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div style="text-align: center">
+			<form action="hae-lainaa" method="post" id="datat">
+				<input type="hidden" name="etunimi" value="3487" id="etunimi1">
+				<input type="hidden" name="sukunimi" value="3487" id="sukunimi1">
+				<input type="hidden" name="lainantyyppi" value="3487" id="lt">
+				<input type="hidden" name="korkoprosentti" value="3488" id="kp">
+				<input type="hidden" name="lainanMaara" value="3489" id="lm">
+
+
+				<button onclick="keraaData()">Hae lainaa</button>
+				<a href="listaa-lainat"> <input type="button"
+					value="�l� hae lainaa" />
+				</a>
+
+			</form>
+
+
+		</div>
+		<br>
+		<br>
+
+
+		<div id="demo" class="carousel slide" data-ride="carousel">
+
+			<!-- The slideshow -->
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img
+						src="http://myy.haaga-helia.fi/~bgh273/DigitaalisetPalvelut/loppusivusto/kuva3.png"
+						alt="Raha">
+				</div>
+				<div class="carousel-item">
+					<img
+						src="http://myy.haaga-helia.fi/~bgh273/DigitaalisetPalvelut/loppusivusto/kuva3.png"
+						alt="Viina">
+				</div>
+				<div class="carousel-item">
+					<img
+						src="http://myy.haaga-helia.fi/~bgh273/DigitaalisetPalvelut/loppusivusto/kuva3.png"
+						alt="Mimmit">
+				</div>
+			</div>
+		</div>
+		<hr>
+
+	</article>
+
+	<footer>
+		&copy; Jaanin rahastuspaja<br> Y-Tunnus: 123567-8<br>
+		Osoite: Kotikatu 666X<br> Puh: 012 345 678<br> Email:
+		sahkoposti@kiristys.com
+
+	</footer> </main>
+</body>
+
+</html>

@@ -25,13 +25,13 @@ public class LainaController {
 	private LainaRepository repo;
 	@Autowired
 	private LainatyyppiRepository repo2;
-	
+
 	@Autowired
 	private AsiakasRepository repo3;
 
-	@GetMapping("/index")
+	@GetMapping("/")
 	public String indexGet(Model model) {
-		return "index";
+		return "haeLainaa";
 	}
 	// TODO Fixataan nää oikeisiin endpointteihin
 
@@ -72,12 +72,8 @@ public class LainaController {
 
 	@PostMapping("/savelaina")
 	public String savelainaPost(Laina laina) {
-		System.out.println("####################################");
-		laina.toString();
-		System.out.println("####################################");
-
 		repo.save(laina);
-		return "lainalista";
+		return "redirect:/lainalista";
 	}
 
 	@GetMapping("/editlaina/{id}")
