@@ -49,6 +49,11 @@ public Laina(Asiakas asiakas, double lainanMaara, Lainatyyppi lainatyyppi) {
 	this.lainanMaara = lainanMaara;
 	this.lainatyyppi = lainatyyppi;
 }
+@Override
+public String toString() {
+	return "Laina [id=" + id + ", asiakas=" + asiakas + ", lainatyyppi=" + lainatyyppi + ", lainanMaara=" + lainanMaara
+			+ "]";
+}
 public Lainatyyppi getLainatyyppi() {
 	return lainatyyppi;
 }

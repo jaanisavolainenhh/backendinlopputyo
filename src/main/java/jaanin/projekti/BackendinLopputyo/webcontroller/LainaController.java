@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jaanin.projekti.BackendinLopputyo.domain.Asiakas;
 import jaanin.projekti.BackendinLopputyo.domain.AsiakasRepository;
 import jaanin.projekti.BackendinLopputyo.domain.Laina;
 import jaanin.projekti.BackendinLopputyo.domain.LainaRepository;
+import jaanin.projekti.BackendinLopputyo.domain.Lainatyyppi;
 import jaanin.projekti.BackendinLopputyo.domain.LainatyyppiRepository;
 
 @Controller
@@ -34,6 +36,42 @@ public class LainaController {
 		return "haeLainaa";
 	}
 	// TODO Fixataan nää oikeisiin endpointteihin
+
+	@PostMapping("/hakemus") //oisko vaan getmappina niin ei tarvi securitya miettiä
+	public String katsohakemus(Laina laina) {
+
+			if(validoiHakemus(laina))
+				return "redirect:/lainalista"; //laina ok
+			else
+				return "redirect:/lainalista"; //laina ei ok, mitäs nyt
+
+	}
+
+	private boolean validoiHakemus(Laina laina) {
+
+		Asiakas asiakas;
+		asiakas = repo3.findByNimi(laina.getAsiakas().getNimi());
+		if(asiakas.getId() == null)
+		{
+			//luodaan asiakas
+			asiakas = new Asiakas(laina.getAsiakas().getNimi());
+			repo3.save(asiakas);
+		}
+		
+		List<Lainatyyppi> lainatyypit;
+		lainatyypit = repo2.findByName(laina.getLainatyyppi().getName());
+		if(lainatyypit.size() == 0)
+		{
+			return false;
+		}
+		Lainatyyppi lainatyyppi = lainatyypit.get(0);
+		
+		Laina uusiLaina = new Laina(asiakas, 500, lainatyyppi);
+		
+		repo.save(uusiLaina);
+		
+		return true;
+	}
 
 	@GetMapping("/lainalista")
 	public String lainalistGet(Model model) {
@@ -66,7 +104,7 @@ public class LainaController {
 	@GetMapping("/addlaina")
 	public String addlainaGet(Model model) {
 		model.addAttribute("laina", new Laina());
-		model.addAttribute("categories", repo2.findAll());
+		model.addAttribute("lainatyypit", repo2.findAll());
 		return "addlaina";
 	}
 
