@@ -1,6 +1,5 @@
 package jaanin.projekti.BackendinLopputyo;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,63 +19,47 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import jaanin.projekti.BackendinLopputyo.webcontroller.UserDetailServiceImpl;
 
-
-
-
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private UserDetailServiceImpl userDetailsService;	
-	
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-        .authorizeRequests().antMatchers("/css/**").permitAll() // Enable css when logged out
-        .and()
-        .authorizeRequests()
-        .antMatchers("/", "/hakemus").permitAll()
-        //.antMatchers("/", "/add", "/save", "/booklist").permitAll()
-        .antMatchers("/delete/{id}").hasAuthority("ADMIN")
-        .anyRequest().authenticated()
-          .and()
-          .formLogin()
-          .loginPage("/login")
-          .defaultSuccessUrl("/lainalista", true)
-          .permitAll()
-          .and()
-      .logout()
-          .permitAll();
-    }
-    
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-    }
-    
+	@Autowired
+	private UserDetailServiceImpl userDetailsService;
 
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        List<UserDetails> users = new ArrayList();
-    	UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password")
-                .roles("USER")
-                .build();
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		if (true) {
+			http.csrf().disable(); //enabloi deleten käyttämisen
+			http.authorizeRequests().antMatchers("/**").permitAll();
+		} else {
+			http.authorizeRequests().antMatchers("/css/**").permitAll() // Enable css when logged out
+					.and().authorizeRequests().antMatchers("/", "/hakemus", "/api/**").permitAll()
+					// .antMatchers("/", "/add", "/save", "/booklist").permitAll()
+					// .antMatchers("/delete/{id}").hasAuthority("ADMIN")
+					.anyRequest().authenticated().and().formLogin().loginPage("/login")
+					.defaultSuccessUrl("/hallinta", true).permitAll().and().logout().permitAll();
+		}
+	}
 
-    	users.add(user);
-    	
-    	user = User.withDefaultPasswordEncoder()
-                   .username("admin")
-                   .password("password")
-                   .roles("USER", "ADMIN")
-                   .build();
-    	
-    	users.add(user);
-    	
-        return new InMemoryUserDetailsManager(users);
-    }
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+	}
+
+	@Bean
+	@Override
+	public UserDetailsService userDetailsService() {
+		List<UserDetails> users = new ArrayList();
+		UserDetails user = User.withDefaultPasswordEncoder().username("user").password("password").roles("USER")
+				.build();
+
+		users.add(user);
+
+		user = User.withDefaultPasswordEncoder().username("admin").password("password").roles("USER", "ADMIN").build();
+
+		users.add(user);
+
+		return new InMemoryUserDetailsManager(users);
+	}
 
 }

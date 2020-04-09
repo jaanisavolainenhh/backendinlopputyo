@@ -29,17 +29,29 @@ public class BackendinLopputyoApplication {
 	public CommandLineRunner bookstoreDemo(LainaRepository lainat, LainatyyppiRepository lainatyypit, UserRepository userit, AsiakasRepository asiakkaat) {
 		return (args) -> {
 			
-			lainatyypit.save(new Lainatyyppi("Erotiikka"));
-			lainatyypit.save(new Lainatyyppi("Politiikka"));
-			lainatyypit.save(new Lainatyyppi("Eroottinen politiikka"));
-			asiakkaat.save(new Asiakas("Asiakas 1"));
-			asiakkaat.save(new Asiakas("Asiakas 2"));
-			asiakkaat.save(new Asiakas("Asiakas 3"));
+			
+			Asiakas asiakas1 = new Asiakas("Ville Velkavankeus");
+			Asiakas asiakas2 = new Asiakas("Keijo Korko");
+			Asiakas asiakas3 = new Asiakas("Pekka Perintä");
+
+			asiakkaat.save(asiakas1);
+			asiakkaat.save(asiakas2);
+			asiakkaat.save(asiakas3);
+			
+			Lainatyyppi lainatyyppi1 = new Lainatyyppi("Kulutusluotto");
+			Lainatyyppi lainatyyppi2 = new Lainatyyppi("PA-luotto");
+			Lainatyyppi lainatyyppi3 = new Lainatyyppi("Klo 3 Aammuyöstä-luotto");
+
+			lainatyypit.save(lainatyyppi1);
+			lainatyypit.save(lainatyyppi2);
+			lainatyypit.save(lainatyyppi3);
+
+			
 			
 			//log.info("Toimii ennen addaamista.");
-			lainat.save(new Laina(asiakkaat.findByNimi("Asiakas 1"), 100,lainatyypit.findByName("Erotiikka").get(0)));
-			lainat.save(new Laina(asiakkaat.findByNimi("Asiakas 2"),200,lainatyypit.findByName("Politiikka").get(0)));
-			lainat.save(new Laina(asiakkaat.findByNimi("Asiakas 3"), 300, lainatyypit.findByName("Eroottinen politiikka").get(0)));
+			lainat.save(new Laina(asiakas1, 100,lainatyyppi1));
+			lainat.save(new Laina(asiakas2,200,lainatyyppi2));
+			lainat.save(new Laina(asiakas3, 300, lainatyyppi3));
 			//TODO Thymeleafiin fixaukset
 			User user1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER", "email@email.com");
 			User user2 = new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN", "posti@posti.com");

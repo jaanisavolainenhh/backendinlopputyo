@@ -78,6 +78,11 @@ public class LainaController {
 		model.addAttribute("lainat", repo.findAll());
 		return "lainalista";
 	}
+	//jees
+	@GetMapping("/hallinta")
+	public String hallintaGet(Model model) {
+		return "megapaneeli";
+	}
 
 	// Resti
 	@RequestMapping(value = "/lainat", method = RequestMethod.GET)
