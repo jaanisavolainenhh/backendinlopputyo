@@ -33,6 +33,8 @@ public class LainaController {
 
 	@GetMapping("/")
 	public String indexGet(Model model) {
+		Laina laina = new Laina();
+		model.addAttribute("laina", laina);
 		return "haeLainaa";
 	}
 	// TODO Fixataan nää oikeisiin endpointteihin
@@ -115,8 +117,10 @@ public class LainaController {
 
 	@PostMapping("/savelaina")
 	public String savelainaPost(Laina laina) {
-		repo.save(laina);
-		return "redirect:/lainalista";
+		System.out.println("###########");
+		System.out.println(laina.toString());
+		//repo.save(laina);
+		return "redirect:/";
 	}
 
 	@GetMapping("/editlaina/{id}")

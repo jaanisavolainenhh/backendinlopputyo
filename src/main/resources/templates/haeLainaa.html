@@ -52,8 +52,9 @@
 
 	<script>
 		function keraaData() {
-			console.log(document.getElementById("kulutus1").checked);
-			console.log(document.getElementById("kulutus2").checked);
+
+// 			console.log(document.getElementById("kulutus1").checked);
+// 			console.log(document.getElementById("kulutus2").checked);
 			document.getElementById("etunimi1").value = document
 					.getElementById("etunimiID").value;
 			document.getElementById("sukunimi1").value = document
@@ -66,6 +67,25 @@
 			document.getElementById("lm").value = document
 					.getElementById("myRange").value * 100;
 			document.getElementById("datat").submit();
+		}
+		
+	
+		function backendKerays() {
+
+			document.getElementById("asiakkaanNimi").value = document
+					.getElementById("etunimiID").value
+					+ " " + document.getElementById("sukunimiID").value;
+
+			if (document.getElementById("lainantyyppi").checked) {
+				document.getElementById("lainanTyyppi").value = "Kulutusluotto";
+			} else {
+
+				document.getElementById("lainanTyyppi").value = "Käyttälaina";
+			}
+			document.getElementById("lainanMaara").value = document
+					.getElementById("myRange").value * 100;
+			document.getElementById("postaaData").submit();
+
 		}
 	</script>
 
@@ -176,11 +196,12 @@
 					<form id="tiedot">
 						Etunimi: <input type="text" name="etunimi" id="etunimiID"><br>
 						Sukunimi: <input type="text" name="sukunimi" id="sukunimiID"><br>
-						Henkil�tunnus: <input type="text" name="lname"><br>
+						Henkilötunnus*: <input type="text" name="lname"><br>
 						Osoite: <input type="text" name="lname"><br>
 						Postinumero: <input type="text" name="lname"><br>
 						Postitoimipaikka: <input type="text" name="lname"><br>
 					</form>
+					<label>* merkityt pakollisia</label>
 				</div>
 			</div>
 
@@ -237,17 +258,16 @@
 				<input type="hidden" name="lainanMaara" value="3489" id="lm">
 
 
-				<button onclick="keraaData()">Hae lainaa</button>
+				<button onclick="backendKerays()">Hae lainaa</button>
 				<a href="listaa-lainat"> <input type="button"
-					value="�l� hae lainaa" />
+					value="Älä hae lainaa" />
 				</a>
 
 			</form>
 
 
 		</div>
-		<br>
-		<br>
+		<br> <br>
 
 
 		<div id="demo" class="carousel slide" data-ride="carousel">
@@ -279,6 +299,36 @@
 		&copy; Jaanin rahastuspaja<br> Y-Tunnus: 123567-8<br>
 		Osoite: Kotikatu 666X<br> Puh: 012 345 678<br> Email:
 		sahkoposti@kiristys.com
+
+
+		<form action="#" th:action="@{../savelaina}" th:object="${laina}"
+			method="post" id="postaaData">
+			<!-- hidden input lähettää eteenpäin arvoja joita ei haluta näyttää tai/eikä muuttaa -->
+			<br> 
+			<input type="text" id="asiakkaanNimi" name="asiakas.nimi" value="Testinimi" /> <br> 
+			<input type="text" id="lainanMaara" name="lainanMaara" value="100.0" /> <br>
+			<input type="text" id="lainanTyyppi" name="Lainatyyppi.name" value="Kulutusluotto 2" /> <br>
+			<button type="submit">Submit</button>
+		</form>
+
+
+
+
+<!-- 		<form action="#" th:action="@{../savelaina}" th:object="${laina}" -->
+<!-- 			method="post"> -->
+<!-- 			<!-- hidden input lähettää eteenpäin arvoja joita ei haluta näyttää tai/eikä muuttaa --> -->
+<!-- 			<br> </label> <select id="deplist" class="form-control" name="asiakas"> -->
+<!-- 				<option value="-1" selected="selected" id="nimi">Ville -->
+<!-- 					Velkavankeus</option> -->
+<!-- 			</select><br> </label> <label>Lainan määrä: </label><input type="text" -->
+<!-- 				id="lainanMaara" name="lainanMaara" value="100.0" /><br> <label>Lainan -->
+<!-- 				tyyppi: </label> <select id="deplist" class="form-control" -->
+<!-- 				name="lainatyyppi"> -->
+<!-- 				<option value="4" selected="selected">Kulutusluotto</option> -->
+<!-- 				<option value="5">PA-luotto</option> -->
+<!-- 			</select><br> -->
+<!-- 			<button type="submit">Submit</button> -->
+<!-- 		</form> -->
 
 	</footer> </main>
 </body>

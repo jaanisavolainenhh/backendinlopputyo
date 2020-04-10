@@ -22,7 +22,7 @@ public class Asiakas {
 	
 	
 
-	@NotBlank
+	//@NotBlank
 	private String nimi;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "asiakas")
 	@JsonIgnore // Siirretty tämä Categoryyn jotta saataisiin "oikea" data kirjasta jossa myös
