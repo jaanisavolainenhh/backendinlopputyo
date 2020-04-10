@@ -44,7 +44,7 @@ public class LainaController {
 				return "redirect:/lainalista"; //laina ok
 			else
 				return "redirect:/lainalista"; //laina ei ok, mitäs nyt
-
+				// palautetaan vain jokin sivu missä on että "Lainahakemus onnistui! Ei onnistunut!" ja urli muualle
 	}
 
 	private boolean validoiHakemus(Laina laina) {

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,6 +18,7 @@ public class Lainatyyppi {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	@NotBlank
 	private String name;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "lainatyyppi")

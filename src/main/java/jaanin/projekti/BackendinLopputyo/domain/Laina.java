@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Positive;
 
 @Entity
 public class Laina {
@@ -22,6 +23,7 @@ private Asiakas asiakas;
 @JoinColumn(name = "lainatyyppi")
 private Lainatyyppi lainatyyppi;
 
+@Positive
 private double lainanMaara;
 
 
