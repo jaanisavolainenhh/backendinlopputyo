@@ -259,18 +259,17 @@
 		<div style="text-align: center">
 		
 		<form action="#" th:action="@{../hakemus}" th:object="${laina}" method="post" id="datat">
-			<input type="text" id="asiakkaanNimi" name="asiakas.nimi" value="Testinimi" /> <br> 
-			<input type="text" id="henkilotunnus" name="asiakas.henkilotunnus" value="4564564561" /> <br> 
-			<input type="text" id="lainanMaara" name="lainanMaara" value="50" /> <br>
-			<input type="text" id="lainanTyyppi" name="Lainatyyppi.name" value="Kulutusluotto 2" /> <br>
-			<input type="text" id="lainanTyyppi.id" name="Lainatyyppi.id" value="2" /> <br>
-				<button onclick="backendKerays()">Hae lainaa</button>
+					<button onclick="backendKerays()">Hae lainaa</button>
 				<a href="listaa-lainat"> <input type="button"
 					value="Älä hae lainaa" />
 				</a>
-
+			<input type="hidden" id="asiakkaanNimi" name="asiakas.nimi" value="Testinimi" /> <br> 
+			<input type="hidden" id="henkilotunnus" name="asiakas.henkilotunnus" value="4564564561" /> <br> 
+			<input type="hidden" id="lainanMaara" name="lainanMaara" value="50" /> <br>
+			<input type="hidden" id="lainanTyyppi" name="Lainatyyppi.name" value="Kulutusluotto 2" /> <br>
+			<input type="hidden" id="lainanTyyppi.id" name="Lainatyyppi.id5" value="" /> <br>
 			</form>
-				<button onclick="backendKerays()">Hae lainaa</button>
+
 
 		</div>
 		<br> <br>

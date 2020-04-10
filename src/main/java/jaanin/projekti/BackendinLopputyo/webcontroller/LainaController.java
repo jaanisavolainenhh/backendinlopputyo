@@ -49,13 +49,13 @@ public class LainaController {
 		if(bindingResult.hasErrors())
 		{
 			System.out.println("VIRHEITÄ");
-			return "redirect:/lainalista";
+			return "redirect:/";
 		}
 		System.out.println("## Hakemus validointia ##");
 		if (validoiHakemus(laina))
 			return "redirect:/lainalista"; // laina ok
 		else
-			return "redirect:/lainalista"; // laina ei ok, mitäs nyt
+			return "redirect:/"; // laina ei ok, mitäs nyt
 		// palautetaan vain jokin sivu missä on että "Lainahakemus onnistui! Ei
 		// onnistunut!" ja urli muualle
 	}
