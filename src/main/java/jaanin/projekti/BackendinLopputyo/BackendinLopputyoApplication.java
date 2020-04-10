@@ -39,7 +39,7 @@ public class BackendinLopputyoApplication {
 			asiakkaat.save(asiakas3);
 			
 			Lainatyyppi lainatyyppi1 = new Lainatyyppi("Kulutusluotto");
-			Lainatyyppi lainatyyppi2 = new Lainatyyppi("PA-luotto");
+			Lainatyyppi lainatyyppi2 = new Lainatyyppi("Käyttölaina");
 			Lainatyyppi lainatyyppi3 = new Lainatyyppi("Klo 3 Aammuyöstä-luotto");
 
 			lainatyypit.save(lainatyyppi1);

@@ -42,6 +42,7 @@ public class LainaController {
 	@PostMapping("/hakemus") //oisko vaan getmappina niin ei tarvi securitya miettiä
 	public String katsohakemus(Laina laina) {
 
+		System.out.println("## Hakemus validointia ##");
 			if(validoiHakemus(laina))
 				return "redirect:/lainalista"; //laina ok
 			else
@@ -52,26 +53,45 @@ public class LainaController {
 	private boolean validoiHakemus(Laina laina) {
 
 		Asiakas asiakas;
-		asiakas = repo3.findByNimi(laina.getAsiakas().getNimi());
-		if(asiakas.getId() == null)
-		{
-			//luodaan asiakas
-			asiakas = new Asiakas("HETU123123",laina.getAsiakas().getNimi());
-			repo3.save(asiakas);
-		}
+		asiakas = repo3.findByHenkilotunnus(laina.getAsiakas().getHenkilotunnus());
 		
+		System.out.println("#####################################################################");
+		System.out.println("Finding lainatyypit..");
 		List<Lainatyyppi> lainatyypit;
 		lainatyypit = repo2.findByName(laina.getLainatyyppi().getName());
+		
+		
 		if(lainatyypit.size() == 0)
 		{
+			System.out.println("Lainatyyppiä "+ laina.getLainatyyppi().getName()  +" ei löytynyt");
+			return false; //lainatyyppiä ei ole olemassa tai lainanmäärä on 0 tai alle
+		}
+	
+		
+		if(laina.getLainanMaara() <= 0 )
+		{
+			System.out.println("Invalid lainanmäärä");
 			return false;
 		}
+
+		
+		if(asiakas == null)
+		{
+			//luodaan asiakas
+			System.out.println(" #####  Creating new asiakas #####");
+			asiakas = new Asiakas(laina.getAsiakas().getHenkilotunnus(),laina.getAsiakas().getNimi());
+			repo3.save(asiakas);
+		}
+		else {
+			System.out.println(" #####  Asiakas Found ########");
+		}
+		
 		Lainatyyppi lainatyyppi = lainatyypit.get(0);
 		
-		Laina uusiLaina = new Laina(asiakas, 500, lainatyyppi);
+		Laina uusiLaina = new Laina(asiakas, laina.getLainanMaara(), lainatyyppi);
 		
 		repo.save(uusiLaina);
-		
+		System.out.println("################################");
 		return true;
 	}
 
@@ -118,9 +138,10 @@ public class LainaController {
 	@PostMapping("/savelaina")
 	public String savelainaPost(Laina laina) {
 		System.out.println("###########");
+		System.out.println("TÄtä ei pitäisi enää käyttää missään");
 		System.out.println(laina.toString());
 		//repo.save(laina);
-		return "redirect:/";
+		return "redirect:/lainalista";
 	}
 
 	@GetMapping("/editlaina/{id}")

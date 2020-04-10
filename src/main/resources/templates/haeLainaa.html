@@ -80,7 +80,7 @@
 				document.getElementById("lainanTyyppi").value = "Kulutusluotto";
 			} else {
 
-				document.getElementById("lainanTyyppi").value = "Käyttälaina";
+				document.getElementById("lainanTyyppi").value = "Käyttölaina";
 			}
 			document.getElementById("lainanMaara").value = document.getElementById("myRange").value * 100;
 			console.log(document.getElementById("lainanMaara").value);
@@ -137,7 +137,7 @@
 			}
 			;
 			numero = 1 + korko * (aika / 12);
-			document.getElementById("korko").innerHTML = "<b>Kuukausier�:   </b>"
+			document.getElementById("korko").innerHTML = "<b>Kuukausierä:   </b>"
 					+ (numero * maara / aika).toFixed(2) + "e";
 			document.getElementById("todellinen").innerHTML = "<b>Todellinen Hinta:   </b>"
 					+ (numero * maara).toFixed(2) + "e";
@@ -232,11 +232,11 @@
 								checked="checked" id="kulutus1" oninput=LaskeKorko();>
 							Kulutusluotto<br> <input type="radio" name="kulutus"
 								value="k�ytt�laina" id="kulutus2" oninput=LaskeKorko();>
-							K�ytt�laina<br>
+							Käyttölaina<br>
 						</form>
 						<br>
 						<div id="korko">
-							<b>Kuukausier�:</b>
+							<b>Kuukausierä:</b>
 						</div>
 						<div id="todellinen">
 							<b>Todellinen Hinta</b>
@@ -251,7 +251,7 @@
 
 		<div style="text-align: center">
 		
-		<form action="#" th:action="@{../savelaina}" th:object="${laina}" method="post" id="datat">
+		<form action="#" th:action="@{../hakemus}" th:object="${laina}" method="post" id="datat">
 			<input type="text" id="asiakkaanNimi" name="asiakas.nimi" value="Testinimi" /> <br> 
 			<input type="text" id="lainanMaara" name="lainanMaara" value="50" /> <br>
 			<input type="text" id="lainanTyyppi" name="Lainatyyppi.name" value="Kulutusluotto 2" /> <br>

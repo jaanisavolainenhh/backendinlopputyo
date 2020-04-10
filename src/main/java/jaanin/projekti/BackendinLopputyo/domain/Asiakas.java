@@ -17,18 +17,8 @@ public class Asiakas {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	public String getHenkilotunnus() {
-		return henkilotunnus;
-	}
-
-	public void setHenkilotunnus(String henkilotunnus) {
-		this.henkilotunnus = henkilotunnus;
-	}
-
 	//@Size(min = 10, max = 10)
 	private String henkilotunnus;
-	
 
 	//@NotBlank
 	private String nimi;
@@ -36,6 +26,16 @@ public class Asiakas {
 	@JsonIgnore // Siirretty tämä Categoryyn jotta saataisiin "oikea" data kirjasta jossa myös
 	private List<Laina> lainat;
 
+	
+	public String getHenkilotunnus() {
+		return henkilotunnus;
+	}
+	
+	public void setHenkilotunnus(String henkilotunnus) {
+		this.henkilotunnus = henkilotunnus;
+	}
+	
+	
 	public Long getId() {
 		return id;
 	}
