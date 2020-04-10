@@ -56,7 +56,7 @@ public class LainaController {
 		if(asiakas.getId() == null)
 		{
 			//luodaan asiakas
-			asiakas = new Asiakas(laina.getAsiakas().getNimi());
+			asiakas = new Asiakas("HETU123123",laina.getAsiakas().getNimi());
 			repo3.save(asiakas);
 		}
 		

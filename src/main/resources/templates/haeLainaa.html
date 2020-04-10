@@ -62,7 +62,7 @@
 			if (document.getElementById("kulutus1").checked) {
 				document.getElementById("lt").value = "Kulutusluotto";
 			} else {
-				document.getElementById("lt").value = "K�ytt�laina";
+				document.getElementById("lt").value = "Käyttölaina";
 			}
 			document.getElementById("lm").value = document
 					.getElementById("myRange").value * 100;
@@ -76,15 +76,15 @@
 					.getElementById("etunimiID").value
 					+ " " + document.getElementById("sukunimiID").value;
 
-			if (document.getElementById("lainantyyppi").checked) {
+			if (document.getElementById("kulutus1").checked) {
 				document.getElementById("lainanTyyppi").value = "Kulutusluotto";
 			} else {
 
 				document.getElementById("lainanTyyppi").value = "Käyttälaina";
 			}
-			document.getElementById("lainanMaara").value = document
-					.getElementById("myRange").value * 100;
-			document.getElementById("postaaData").submit();
+			document.getElementById("lainanMaara").value = document.getElementById("myRange").value * 100;
+			console.log(document.getElementById("lainanMaara").value);
+			//document.getElementById("datat").submit();
 
 		}
 	</script>
@@ -250,21 +250,18 @@
 		<br>
 
 		<div style="text-align: center">
-			<form action="hae-lainaa" method="post" id="datat">
-				<input type="hidden" name="etunimi" value="3487" id="etunimi1">
-				<input type="hidden" name="sukunimi" value="3487" id="sukunimi1">
-				<input type="hidden" name="lainantyyppi" value="3487" id="lt">
-				<input type="hidden" name="korkoprosentti" value="3488" id="kp">
-				<input type="hidden" name="lainanMaara" value="3489" id="lm">
-
-
+		
+		<form action="#" th:action="@{../savelaina}" th:object="${laina}" method="post" id="datat">
+			<input type="text" id="asiakkaanNimi" name="asiakas.nimi" value="Testinimi" /> <br> 
+			<input type="text" id="lainanMaara" name="lainanMaara" value="50" /> <br>
+			<input type="text" id="lainanTyyppi" name="Lainatyyppi.name" value="Kulutusluotto 2" /> <br>
 				<button onclick="backendKerays()">Hae lainaa</button>
 				<a href="listaa-lainat"> <input type="button"
 					value="Älä hae lainaa" />
 				</a>
 
 			</form>
-
+				<button onclick="backendKerays()">Hae lainaa</button>
 
 		</div>
 		<br> <br>
@@ -301,34 +298,6 @@
 		sahkoposti@kiristys.com
 
 
-		<form action="#" th:action="@{../savelaina}" th:object="${laina}"
-			method="post" id="postaaData">
-			<!-- hidden input lähettää eteenpäin arvoja joita ei haluta näyttää tai/eikä muuttaa -->
-			<br> 
-			<input type="text" id="asiakkaanNimi" name="asiakas.nimi" value="Testinimi" /> <br> 
-			<input type="text" id="lainanMaara" name="lainanMaara" value="100.0" /> <br>
-			<input type="text" id="lainanTyyppi" name="Lainatyyppi.name" value="Kulutusluotto 2" /> <br>
-			<button type="submit">Submit</button>
-		</form>
-
-
-
-
-<!-- 		<form action="#" th:action="@{../savelaina}" th:object="${laina}" -->
-<!-- 			method="post"> -->
-<!-- 			<!-- hidden input lähettää eteenpäin arvoja joita ei haluta näyttää tai/eikä muuttaa --> -->
-<!-- 			<br> </label> <select id="deplist" class="form-control" name="asiakas"> -->
-<!-- 				<option value="-1" selected="selected" id="nimi">Ville -->
-<!-- 					Velkavankeus</option> -->
-<!-- 			</select><br> </label> <label>Lainan määrä: </label><input type="text" -->
-<!-- 				id="lainanMaara" name="lainanMaara" value="100.0" /><br> <label>Lainan -->
-<!-- 				tyyppi: </label> <select id="deplist" class="form-control" -->
-<!-- 				name="lainatyyppi"> -->
-<!-- 				<option value="4" selected="selected">Kulutusluotto</option> -->
-<!-- 				<option value="5">PA-luotto</option> -->
-<!-- 			</select><br> -->
-<!-- 			<button type="submit">Submit</button> -->
-<!-- 		</form> -->
 
 	</footer> </main>
 </body>

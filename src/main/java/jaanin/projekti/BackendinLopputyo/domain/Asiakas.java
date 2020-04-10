@@ -8,9 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,6 +18,16 @@ public class Asiakas {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	public String getHenkilotunnus() {
+		return henkilotunnus;
+	}
+
+	public void setHenkilotunnus(String henkilotunnus) {
+		this.henkilotunnus = henkilotunnus;
+	}
+
+	//@Size(min = 10, max = 10)
+	private String henkilotunnus;
 	
 
 	//@NotBlank
@@ -44,24 +52,26 @@ public class Asiakas {
 		this.nimi = nimi;
 	}
 
+	public Asiakas(String henkilotunnus, String nimi) {
+		super();
+		this.henkilotunnus = henkilotunnus;
+		this.nimi = nimi;
+	}
+
 	public List<Laina> getLainat() {
 		return lainat;
 	}
 
 	@Override
 	public String toString() {
-		return "Asiakas [nimi=" + nimi + "]";
+		return "Asiakas [id=" + id + ", henkilotunnus=" + henkilotunnus + ", nimi=" + nimi + "]";
 	}
 
 	public void setLainat(List<Laina> lainat) {
 		this.lainat = lainat;
 	}
 
-	public Asiakas(String nimi) {
-		super();
-		this.nimi = nimi;
 
-	}
 
 	public Asiakas() {
 

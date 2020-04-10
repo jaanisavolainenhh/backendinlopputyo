@@ -30,9 +30,9 @@ public class BackendinLopputyoApplication {
 		return (args) -> {
 			
 			
-			Asiakas asiakas1 = new Asiakas("Ville Velkavankeus");
-			Asiakas asiakas2 = new Asiakas("Keijo Korko");
-			Asiakas asiakas3 = new Asiakas("Pekka Perintä");
+			Asiakas asiakas1 = new Asiakas("1234567890","Ville Velkavankeus");
+			Asiakas asiakas2 = new Asiakas("9876543210","Keijo Korko");
+			Asiakas asiakas3 = new Asiakas("1231231230","Pekka Perintä");
 
 			asiakkaat.save(asiakas1);
 			asiakkaat.save(asiakas2);
