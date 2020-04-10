@@ -3,11 +3,13 @@ package jaanin.projekti.BackendinLopputyo.webcontroller;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.RollbackException;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,8 +44,13 @@ public class LainaController {
 	// TODO Fixataan nää oikeisiin endpointteihin
 
 	@PostMapping("/hakemus") // oisko vaan getmappina niin ei tarvi securitya miettiä
-	public String katsohakemus(Laina laina) {
+	public String katsohakemus(@Valid Laina laina, BindingResult bindingResult) {
 
+		if(bindingResult.hasErrors())
+		{
+			System.out.println("VIRHEITÄ");
+			return "redirect:/lainalista";
+		}
 		System.out.println("## Hakemus validointia ##");
 		if (validoiHakemus(laina))
 			return "redirect:/lainalista"; // laina ok
@@ -83,10 +90,14 @@ public class LainaController {
 			System.out.println("Tallennusyritys");
 			try {
 				repo3.save(asiakas);
+			} catch (TransactionSystemException huoh) {
+				System.out.println("Hhuoh nappas :) ############"); //palauta errorviesti
+				return false;
 			} catch (Exception ex) {
-				System.out.println("Validointi failas");
+				System.out.println("Kun kaikki muu hajoo");
 				return false;
 			}
+
 		} else {
 			System.out.println(" #####  Asiakas Found ########");
 		}
@@ -134,6 +145,7 @@ public class LainaController {
 		return "redirect:../lainalista";
 	}
 
+	//Tää kai vois poistaa
 	@GetMapping("/addlaina")
 	public String addlainaGet(Model model) {
 		model.addAttribute("laina", new Laina());
@@ -143,10 +155,17 @@ public class LainaController {
 
 	@PostMapping("/savelaina")
 	public String savelainaPost(Laina laina) {
-		System.out.println("###########");
-		System.out.println("TÄtä ei pitäisi enää käyttää missään");
-		System.out.println(laina.toString());
-		// repo.save(laina);
+		try {
+			repo.save(laina);
+		} catch (javax.validation.ConstraintViolationException ex) {
+			System.out.println("ohhoh");
+		} catch (org.springframework.transaction.TransactionSystemException huoh) {
+			System.out.println("Hhuoh nappas :) ############");
+		}
+
+		catch (Exception e) {
+			System.out.println(e.toString());
+		}
 		return "redirect:/lainalista";
 	}
 

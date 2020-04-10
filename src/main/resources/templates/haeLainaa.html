@@ -82,9 +82,12 @@
 
 			if (document.getElementById("kulutus1").checked) {
 				document.getElementById("lainanTyyppi").value = "Kulutusluotto";
+// 				document.getElementById("lainanTyyppi.id").value = "4";
+				
 			} else {
 
 				document.getElementById("lainanTyyppi").value = "Käyttölaina";
+// 				document.getElementById("lainanTyyppi.id").value = "5";
 			}
 			document.getElementById("lainanMaara").value = document.getElementById("myRange").value * 100;
 			console.log(document.getElementById("lainanMaara").value);
@@ -260,6 +263,7 @@
 			<input type="text" id="henkilotunnus" name="asiakas.henkilotunnus" value="4564564561" /> <br> 
 			<input type="text" id="lainanMaara" name="lainanMaara" value="50" /> <br>
 			<input type="text" id="lainanTyyppi" name="Lainatyyppi.name" value="Kulutusluotto 2" /> <br>
+			<input type="text" id="lainanTyyppi.id" name="Lainatyyppi.id" value="2" /> <br>
 				<button onclick="backendKerays()">Hae lainaa</button>
 				<a href="listaa-lainat"> <input type="button"
 					value="Älä hae lainaa" />
