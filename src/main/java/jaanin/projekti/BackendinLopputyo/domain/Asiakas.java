@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,10 +18,11 @@ public class Asiakas {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	//@Size(min = 10, max = 10)
+	
+	@Size(min = 10, max = 10)
 	private String henkilotunnus;
 
-	//@NotBlank
+	@NotBlank
 	private String nimi;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "asiakas")
 	@JsonIgnore // Siirretty tämä Categoryyn jotta saataisiin "oikea" data kirjasta jossa myös

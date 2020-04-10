@@ -55,23 +55,27 @@
 
 // 			console.log(document.getElementById("kulutus1").checked);
 // 			console.log(document.getElementById("kulutus2").checked);
-			document.getElementById("etunimi1").value = document
-					.getElementById("etunimiID").value;
-			document.getElementById("sukunimi1").value = document
-					.getElementById("sukunimiID").value
-			if (document.getElementById("kulutus1").checked) {
-				document.getElementById("lt").value = "Kulutusluotto";
-			} else {
-				document.getElementById("lt").value = "Käyttölaina";
-			}
-			document.getElementById("lm").value = document
-					.getElementById("myRange").value * 100;
-			document.getElementById("datat").submit();
+// 			document.getElementById("etunimi1").value = document
+// 					.getElementById("etunimiID").value;
+// 			document.getElementById("sukunimi1").value = document
+// 					.getElementById("sukunimiID").value
+// 			if (document.getElementById("kulutus1").checked) {
+// 				document.getElementById("lt").value = "Kulutusluotto";
+// 			} else {
+// 				document.getElementById("lt").value = "Käyttölaina";
+// 			}
+// 			document.getElementById("lm").value = document
+// 					.getElementById("myRange").value * 100;
+// 			document.getElementById("datat").submit();
 		}
 		
 	
 		function backendKerays() {
 
+			document.getElementById("henkilotunnus").value = document
+			.getElementById("henkilotunnusID").value
+			
+			
 			document.getElementById("asiakkaanNimi").value = document
 					.getElementById("etunimiID").value
 					+ " " + document.getElementById("sukunimiID").value;
@@ -196,7 +200,7 @@
 					<form id="tiedot">
 						Etunimi: <input type="text" name="etunimi" id="etunimiID"><br>
 						Sukunimi: <input type="text" name="sukunimi" id="sukunimiID"><br>
-						Henkilötunnus*: <input type="text" name="lname"><br>
+						Henkilötunnus*: <input type="text" name="lname" id="henkilotunnusID"><br>
 						Osoite: <input type="text" name="lname"><br>
 						Postinumero: <input type="text" name="lname"><br>
 						Postitoimipaikka: <input type="text" name="lname"><br>
@@ -253,6 +257,7 @@
 		
 		<form action="#" th:action="@{../hakemus}" th:object="${laina}" method="post" id="datat">
 			<input type="text" id="asiakkaanNimi" name="asiakas.nimi" value="Testinimi" /> <br> 
+			<input type="text" id="henkilotunnus" name="asiakas.henkilotunnus" value="4564564561" /> <br> 
 			<input type="text" id="lainanMaara" name="lainanMaara" value="50" /> <br>
 			<input type="text" id="lainanTyyppi" name="Lainatyyppi.name" value="Kulutusluotto 2" /> <br>
 				<button onclick="backendKerays()">Hae lainaa</button>

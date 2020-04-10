@@ -3,6 +3,8 @@ package jaanin.projekti.BackendinLopputyo.webcontroller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.RollbackException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,57 +41,60 @@ public class LainaController {
 	}
 	// TODO Fixataan nää oikeisiin endpointteihin
 
-	@PostMapping("/hakemus") //oisko vaan getmappina niin ei tarvi securitya miettiä
+	@PostMapping("/hakemus") // oisko vaan getmappina niin ei tarvi securitya miettiä
 	public String katsohakemus(Laina laina) {
 
 		System.out.println("## Hakemus validointia ##");
-			if(validoiHakemus(laina))
-				return "redirect:/lainalista"; //laina ok
-			else
-				return "redirect:/lainalista"; //laina ei ok, mitäs nyt
-				// palautetaan vain jokin sivu missä on että "Lainahakemus onnistui! Ei onnistunut!" ja urli muualle
+		if (validoiHakemus(laina))
+			return "redirect:/lainalista"; // laina ok
+		else
+			return "redirect:/lainalista"; // laina ei ok, mitäs nyt
+		// palautetaan vain jokin sivu missä on että "Lainahakemus onnistui! Ei
+		// onnistunut!" ja urli muualle
 	}
 
 	private boolean validoiHakemus(Laina laina) {
 
 		Asiakas asiakas;
 		asiakas = repo3.findByHenkilotunnus(laina.getAsiakas().getHenkilotunnus());
-		
+
 		System.out.println("#####################################################################");
 		System.out.println("Finding lainatyypit..");
 		List<Lainatyyppi> lainatyypit;
 		lainatyypit = repo2.findByName(laina.getLainatyyppi().getName());
-		
-		
-		if(lainatyypit.size() == 0)
-		{
-			System.out.println("Lainatyyppiä "+ laina.getLainatyyppi().getName()  +" ei löytynyt");
-			return false; //lainatyyppiä ei ole olemassa tai lainanmäärä on 0 tai alle
+
+		if (lainatyypit.size() == 0) {
+			System.out.println("Lainatyyppiä " + laina.getLainatyyppi().getName() + " ei löytynyt");
+			return false; // lainatyyppiä ei ole olemassa tai lainanmäärä on 0 tai alle
 		}
-	
-		
-		if(laina.getLainanMaara() <= 0 )
-		{
+
+		if (laina.getLainanMaara() <= 0) {
 			System.out.println("Invalid lainanmäärä");
 			return false;
 		}
 
-		
-		if(asiakas == null)
-		{
-			//luodaan asiakas
-			System.out.println(" #####  Creating new asiakas #####");
-			asiakas = new Asiakas(laina.getAsiakas().getHenkilotunnus(),laina.getAsiakas().getNimi());
-			repo3.save(asiakas);
-		}
-		else {
+		if (asiakas == null) {
+			// luodaan asiakas
+			System.out.println(
+					" #####  Creating new asiakas with hetu " + laina.getAsiakas().getHenkilotunnus() + " #####");
+
+			asiakas = new Asiakas(laina.getAsiakas().getHenkilotunnus(), laina.getAsiakas().getNimi());
+
+			System.out.println("Tallennusyritys");
+			try {
+				repo3.save(asiakas);
+			} catch (Exception ex) {
+				System.out.println("Validointi failas");
+				return false;
+			}
+		} else {
 			System.out.println(" #####  Asiakas Found ########");
 		}
-		
+
 		Lainatyyppi lainatyyppi = lainatyypit.get(0);
-		
+		System.out.println("#Creating new laina#");
 		Laina uusiLaina = new Laina(asiakas, laina.getLainanMaara(), lainatyyppi);
-		
+
 		repo.save(uusiLaina);
 		System.out.println("################################");
 		return true;
@@ -100,7 +105,8 @@ public class LainaController {
 		model.addAttribute("lainat", repo.findAll());
 		return "lainalista";
 	}
-	//jees
+
+	// jees
 	@GetMapping("/hallinta")
 	public String hallintaGet(Model model) {
 		return "megapaneeli";
@@ -140,7 +146,7 @@ public class LainaController {
 		System.out.println("###########");
 		System.out.println("TÄtä ei pitäisi enää käyttää missään");
 		System.out.println(laina.toString());
-		//repo.save(laina);
+		// repo.save(laina);
 		return "redirect:/lainalista";
 	}
 
