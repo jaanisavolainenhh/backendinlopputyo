@@ -104,14 +104,14 @@ public class LainaController {
 
 		Lainatyyppi lainatyyppi = lainatyypit.get(0);
 		System.out.println("#Creating new laina#");
-		Laina uusiLaina = new Laina(asiakas, laina.getLainanMaara(), lainatyyppi);
+		Laina uusiLaina = new Laina(asiakas, lainatyyppi,laina.getLainanMaara() );
 
 		repo.save(uusiLaina);
 		System.out.println("################################");
 		return true;
 	}
 
-	@GetMapping("/lainalista")
+	@GetMapping("/lainat")
 	public String lainalistGet(Model model) {
 		model.addAttribute("lainat", repo.findAll());
 		return "lainalista";
@@ -119,11 +119,11 @@ public class LainaController {
 
 
 
-	// Resti
-	@RequestMapping(value = "/lainat", method = RequestMethod.GET)
-	public @ResponseBody List<Laina> lainaListRest() {
-		return (List<Laina>) repo.findAll();
-	}
+//	// Resti
+//	@RequestMapping(value = "/lainat", method = RequestMethod.GET)
+//	public @ResponseBody List<Laina> lainaListRest() {
+//		return (List<Laina>) repo.findAll();
+//	}
 
 	@RequestMapping(value = "/laina/{id}", method = RequestMethod.GET)
 	public @ResponseBody Optional<Laina> lainaRest(@PathVariable("id") Long id) {

@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @Entity
@@ -13,6 +14,8 @@ public class Laina {
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 private Long id;
+
+@NotNull
 @ManyToOne	
 //@JsonIgnore //Siirretty tämä Categoryyn jotta saataisiin "oikea" data kirjasta jossa myös categoria.
 @JoinColumn(name = "asiakas")
@@ -33,6 +36,7 @@ public Long getId() {
 public void setId(Long id) {
 	this.id = id;
 }
+
 public Asiakas getAsiakas() {
 	return asiakas;
 }
@@ -45,12 +49,15 @@ public double getLainanMaara() {
 public void setLainanMaara(double lainanMaara) {
 	this.lainanMaara = lainanMaara;
 }
-public Laina(Asiakas asiakas, double lainanMaara, Lainatyyppi lainatyyppi) {
+
+
+public Laina(@NotNull Asiakas asiakas, Lainatyyppi lainatyyppi, @Positive double lainanMaara) {
 	super();
 	this.asiakas = asiakas;
-	this.lainanMaara = lainanMaara;
 	this.lainatyyppi = lainatyyppi;
+	this.lainanMaara = lainanMaara;
 }
+
 @Override
 public String toString() {
 	return "Laina [id=" + id + ", asiakas=" + asiakas + ", lainatyyppi=" + lainatyyppi + ", lainanMaara=" + lainanMaara

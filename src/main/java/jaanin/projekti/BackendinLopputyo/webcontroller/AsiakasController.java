@@ -24,7 +24,7 @@ public class AsiakasController {
 	private AsiakasRepository asiakasRepo;
 
 	
-	@GetMapping("/asiakaslista")
+	@GetMapping("/asiakkaat")
 	public String indexGet(Model model) {
 		List<Asiakas> asiakkaat = asiakasRepo.findAll();
 		model.addAttribute("asiakkaat", asiakkaat);

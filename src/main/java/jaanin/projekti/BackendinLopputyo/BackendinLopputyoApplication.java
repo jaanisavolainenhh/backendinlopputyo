@@ -38,9 +38,9 @@ public class BackendinLopputyoApplication {
 			asiakkaat.save(asiakas2);
 			asiakkaat.save(asiakas3);
 			
-			Lainatyyppi lainatyyppi1 = new Lainatyyppi("Kulutusluotto");
-			Lainatyyppi lainatyyppi2 = new Lainatyyppi("Käyttölaina");
-			Lainatyyppi lainatyyppi3 = new Lainatyyppi("Klo 3 Aammuyöstä-luotto");
+			Lainatyyppi lainatyyppi1 = new Lainatyyppi("Kulutusluotto", 5.5, 12);
+			Lainatyyppi lainatyyppi2 = new Lainatyyppi("Käyttölaina", 17, 36);
+			Lainatyyppi lainatyyppi3 = new Lainatyyppi("Klo 3 Aammuyöstä-luotto", 25, 48);
 
 			lainatyypit.save(lainatyyppi1);
 			lainatyypit.save(lainatyyppi2);
@@ -49,9 +49,9 @@ public class BackendinLopputyoApplication {
 			
 			
 			//log.info("Toimii ennen addaamista.");
-			lainat.save(new Laina(asiakas1, 100,lainatyyppi1));
-			lainat.save(new Laina(asiakas2,200,lainatyyppi2));
-			lainat.save(new Laina(asiakas3, 300, lainatyyppi3));
+			lainat.save(new Laina(asiakas1,lainatyyppi1, 100));
+			lainat.save(new Laina(asiakas2,lainatyyppi2, 200));
+			lainat.save(new Laina(asiakas3,lainatyyppi3, 300));
 			//TODO Thymeleafiin fixaukset
 			User user1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER", "email@email.com");
 			User user2 = new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN", "posti@posti.com");

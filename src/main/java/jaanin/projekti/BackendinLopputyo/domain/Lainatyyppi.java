@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,10 +21,42 @@ public class Lainatyyppi {
 	private long id;
 	@NotBlank
 	private String name;
+	
+	@Positive
+	private double korkoprosentti;
+	
+	@Positive
+	private int maksuaika; //kk
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "lainatyyppi")
 	@JsonIgnore
 	private List<Laina> lainat;
+
+	public Lainatyyppi(@NotBlank String name, @Positive double korkoprosentti, @Positive int maksuaika) {
+		super();
+		this.name = name;
+		this.korkoprosentti = korkoprosentti;
+		this.maksuaika = maksuaika;
+	}
+
+	public double getKorkoprosentti() {
+		return korkoprosentti;
+	}
+
+	public void setKorkoprosentti(double korkoprosentti) {
+		this.korkoprosentti = korkoprosentti;
+	}
+
+	public int getMaksuaika() {
+		return maksuaika;
+	}
+
+
+
+	public void setMaksuaika(int maksuaika) {
+		this.maksuaika = maksuaika;
+	}
+
 
 	public List<Laina> getLainat() {
 		return lainat;
@@ -49,14 +82,12 @@ public class Lainatyyppi {
 		this.name = name;
 	}
 
-	public Lainatyyppi(String name) {
-		super();
-		this.name = name;
-	}
+
 
 	@Override
 	public String toString() {
-		return "Lainatyyppi [name=" + name + "]";
+		return "Lainatyyppi [id=" + id + ", name=" + name + ", korkoprosentti=" + korkoprosentti + ", maksuaika="
+				+ maksuaika + "]";
 	}
 
 	public Lainatyyppi() {

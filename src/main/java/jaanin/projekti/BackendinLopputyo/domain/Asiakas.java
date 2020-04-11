@@ -54,7 +54,9 @@ public class Asiakas {
 		this.nimi = nimi;
 	}
 
-	public Asiakas(String henkilotunnus, String nimi) {
+
+
+	public Asiakas(@Size(min = 10, max = 10) String henkilotunnus, @NotBlank String nimi) {
 		super();
 		this.henkilotunnus = henkilotunnus;
 		this.nimi = nimi;
