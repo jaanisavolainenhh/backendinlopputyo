@@ -117,11 +117,7 @@ public class LainaController {
 		return "lainalista";
 	}
 
-	// jees
-	@GetMapping("/hallinta")
-	public String hallintaGet(Model model) {
-		return "megapaneeli";
-	}
+
 
 	// Resti
 	@RequestMapping(value = "/lainat", method = RequestMethod.GET)
@@ -134,10 +130,6 @@ public class LainaController {
 		return repo.findById(id);
 	}
 
-	@RequestMapping(value = "/login")
-	public String login() {
-		return "login";
-	}
 
 	@GetMapping("/delete/{id}")
 	public String lainaDelete(@PathVariable("id") Long id, Model model) {

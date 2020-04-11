@@ -17,7 +17,7 @@ public class LainatyyppiController {
 	private LainatyyppiRepository repo;
 	
 	//TODO Fixataan nää oikeisiin endpointteihin
-	@GetMapping("/lainatyyppilist")
+	@GetMapping("/lainatyypit")
 	public String indexGet(Model model) {
 		model.addAttribute("categories", repo.findAll());
 		return "lainatyyppilista";

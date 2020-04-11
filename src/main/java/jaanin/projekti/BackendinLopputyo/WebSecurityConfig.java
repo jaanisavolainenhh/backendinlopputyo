@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		if (true) {
+		if (false) {
 			http.csrf().disable(); //enabloi deleten käyttämisen
 			http.authorizeRequests().antMatchers("/**").permitAll();
 		} else {
