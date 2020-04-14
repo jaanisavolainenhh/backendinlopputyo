@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,16 +45,38 @@ public class LainaController {
 	// TODO Fixataan nää oikeisiin endpointteihin
 
 	@PostMapping("/hakemus") // oisko vaan getmappina niin ei tarvi securitya miettiä
-	public String katsohakemus(@Valid Laina laina, BindingResult bindingResult) {
+	public String katsohakemus(@Valid Laina laina, BindingResult bindingResult, Model model) {
 
-		if(bindingResult.hasErrors())
-		{
+		System.out.println(laina.toString());
+
+		if (bindingResult.hasErrors()) {
 			System.out.println("VIRHEITÄ");
 			return "redirect:/";
 		}
 		System.out.println("## Hakemus validointia ##");
 		if (validoiHakemus(laina))
-			return "redirect:/lainalista"; // laina ok
+			return "redirect:/lainat"; // laina ok
+		else {
+			model.addAttribute("virheviesti", "Nimi on pakollinen, hetu 10 merkkiä! ");
+			//laitetaan erroriviestinä että hetu tai nimi puuttu
+			return "redirect:/";
+		} // laina ei ok, mitäs nyt
+		// palautetaan vain jokin sivu missä on että "Lainahakemus onnistui! Ei
+		// onnistunut!" ja urli muualle
+	}
+
+	@ResponseBody
+	@PostMapping("/hakemus2") // oisko vaan getmappina niin ei tarvi securitya miettiä
+	public String katsohakemus2(@RequestBody Laina laina) {
+
+		System.out.println(laina.toString());
+
+		if (true)
+			return "/";
+
+		System.out.println("## Hakemus validointia ##");
+		if (validoiHakemus(laina))
+			return "redirect:/lainat"; // laina ok
 		else
 			return "redirect:/"; // laina ei ok, mitäs nyt
 		// palautetaan vain jokin sivu missä on että "Lainahakemus onnistui! Ei
@@ -91,7 +114,7 @@ public class LainaController {
 			try {
 				repo3.save(asiakas);
 			} catch (TransactionSystemException huoh) {
-				System.out.println("Hhuoh nappas :) ############"); //palauta errorviesti
+				System.out.println("Hhuoh nappas :) ############"); // palauta errorviesti
 				return false;
 			} catch (Exception ex) {
 				System.out.println("Kun kaikki muu hajoo");
@@ -104,7 +127,7 @@ public class LainaController {
 
 		Lainatyyppi lainatyyppi = lainatyypit.get(0);
 		System.out.println("#Creating new laina#");
-		Laina uusiLaina = new Laina(asiakas, lainatyyppi,laina.getLainanMaara() );
+		Laina uusiLaina = new Laina(asiakas, lainatyyppi, laina.getLainanMaara());
 
 		repo.save(uusiLaina);
 		System.out.println("################################");
@@ -117,8 +140,6 @@ public class LainaController {
 		return "lainalista";
 	}
 
-
-
 //	// Resti
 //	@RequestMapping(value = "/lainat", method = RequestMethod.GET)
 //	public @ResponseBody List<Laina> lainaListRest() {
@@ -130,14 +151,13 @@ public class LainaController {
 		return repo.findById(id);
 	}
 
-
 	@GetMapping("/delete/{id}")
 	public String lainaDelete(@PathVariable("id") Long id, Model model) {
 		repo.deleteById(id);
-		return "redirect:../lainalista";
+		return "redirect:../lainat";
 	}
 
-	//Tää kai vois poistaa
+	// Tää kai vois poistaa
 	@GetMapping("/addlaina")
 	public String addlainaGet(Model model) {
 		model.addAttribute("laina", new Laina());
@@ -158,7 +178,7 @@ public class LainaController {
 		catch (Exception e) {
 			System.out.println(e.toString());
 		}
-		return "redirect:/lainalista";
+		return "redirect:/lainat";
 	}
 
 	@GetMapping("/editlaina/{id}")

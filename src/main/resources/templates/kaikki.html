@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Book list</title>
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<h1>Dataa</h1>
+	<div class="col-md-4"></div>
+	<a th:href="@{/hallinta}"><button class="btn btn-danger">Hallintapaneeli</button></a>
+
+	<h1>Lainat</h1>
+
+	<table class="table table-striped">
+		<tr>
+			<td><h4>Lainaaja</h4></td>
+			<td><h4>Lainan määrä</h4></td>
+			<td><h4>Lainan tyyppi</h4></td>
+			<td></td>
+		</tr>
+		<tr th:each="laina : ${lainat}">
+			<td th:text="${laina.asiakas.nimi}">Nimi</td>
+			<td th:text="${laina.lainanMaara}">Määrä</td>
+			<td th:text="${laina.lainatyyppi.name}">Lainatyyppi</td>
+		</tr>
+	</table>
+
+
+	<h1>Asiakkaat</h1>
+	<table class="table table-striped">
+		<tr>
+			<td><h4>Asiakas</h4></td>
+			<td><h4>Henkilötunnus</h4></td>
+
+		</tr>
+		<tr th:each="asiakas : ${asiakkaat}">
+			<td th:text="${asiakas.nimi}">Category</td>
+			<td th:text="${asiakas.henkilotunnus}">Category</td>
+
+
+		</tr>
+	</table>
+
+
+	<h1>Lainatyypit</h1>
+
+
+	<table class="table table-striped">
+
+		<tr>
+			<td><h4>Tyyppi</h4></td>
+			<td><h4>Korko</h4></td>
+			<td><h4>Maksuaika (kk)</h4></td>
+
+		</tr>
+		<tr th:each="lainatyyppi : ${lainatyypit}">
+			<td th:text="${lainatyyppi.name}">Category</td>
+			<td th:text="${lainatyyppi.korkoprosentti}+ '%' " +asd>Category</td>
+			<td th:text="${lainatyyppi.maksuaika} +' kk'">Category</td>
+
+
+		</tr>
+	</table>
+
+
+</body>
+</html>

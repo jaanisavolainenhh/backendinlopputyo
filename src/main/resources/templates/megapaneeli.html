@@ -19,13 +19,24 @@
 						class="btn btn-danger">Asiakkaat</button></a></td>
 		</tr>
 		<tr>
-			<td><a th:href="@{/lainat}"><button
-						class="btn btn-danger">Lainat</button></a></td>
+			<td><a th:href="@{/lainat}"><button class="btn btn-danger">Lainat</button></a></td>
 		</tr>
 		<tr>
 			<td><a th:href="@{/lainatyypit}"><button
 						class="btn btn-danger">Lainatyypit</button></a></td>
 		</tr>
+
+		<tr>
+			<td><a th:href="@{/}"><button class="btn btn-danger">Lainanhaku</button></a></td>
+		</tr>
+		
+				<tr>
+			<td><a th:href="@{/login}"><button class="btn btn-danger">Login</button></a></td>
+		</tr>
+		
+				<form th:action="@{/logout}" method="post">
+					<input type="submit" value="Sign Out" class="btn btn-danger" />
+				</form>
 	</table>
 
 </body>
