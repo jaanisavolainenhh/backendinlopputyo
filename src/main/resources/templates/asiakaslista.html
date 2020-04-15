@@ -7,25 +7,27 @@
 	th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-	<h1>Asiakas lista</h1>
+	<h1>Asiakkaat</h1>
 	<table class="table table-striped">
 		<a th:href="@{/hallinta}">
 			<button class="btn btn-danger">Hallintapaneeli</button>
 		</a>
+		
 		<tr>
-			<td><h4>Asiakkaat</h4></td>
-
+			<td><h4>Asiakas</h4></td>
+			<td><h4>Henkilötunnus</h4></td>
 			<td></td>
 			<td></td>
 		</tr>
 		<tr th:each="asiakas : ${asiakkaat}">
 			<td th:text="${asiakas.nimi}">Category</td>
-			<td><a th:href="@{/deleteasiakas/{id}(id=${asiakas.id})}"><button
+						<td th:text="${asiakas.henkilotunnus}">Category</td>
+			<td><a th:href="@{/poistaasiakas/{id}(id=${asiakas.id})}"><button
 						class="btn btn-danger">Delete</button></a></td>
 			<td><a th:href="@{/editasiakas/{id}(id=${asiakas.id})}">Edit</a></td>
 		</tr>
 	</table>
-	<a href="/addcategory"><button class="btn btn-success">Add
+	<a href="/addasiakas"><button class="btn btn-success">Add
 			Asiakas</button></a>
 </body>
 </html>

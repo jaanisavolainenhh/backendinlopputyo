@@ -44,7 +44,7 @@ public class LainaController {
 	}
 	// TODO Fixataan nää oikeisiin endpointteihin
 
-	@PostMapping("/hakemus") // oisko vaan getmappina niin ei tarvi securitya miettiä
+	@PostMapping("/hakemus") //
 	public String katsohakemus(@Valid Laina laina, BindingResult bindingResult, Model model) {
 
 		System.out.println(laina.toString());
@@ -65,28 +65,28 @@ public class LainaController {
 		// onnistunut!" ja urli muualle
 	}
 
-	@ResponseBody
-	@PostMapping("/hakemus2") // oisko vaan getmappina niin ei tarvi securitya miettiä
-	public String katsohakemus2(@RequestBody Laina laina) {
-
-		System.out.println(laina.toString());
-
-		if (true)
-			return "/";
-
-		System.out.println("## Hakemus validointia ##");
-		if (validoiHakemus(laina))
-			return "redirect:/lainat"; // laina ok
-		else
-			return "redirect:/"; // laina ei ok, mitäs nyt
-		// palautetaan vain jokin sivu missä on että "Lainahakemus onnistui! Ei
-		// onnistunut!" ja urli muualle
-	}
+//	@ResponseBody
+//	@PostMapping("/hakemus2") // oisko vaan getmappina niin ei tarvi securitya miettiä
+//	public String katsohakemus2(@RequestBody Laina laina) {
+//
+//		System.out.println(laina.toString());
+//
+//		if (true)
+//			return "/";
+//
+//		System.out.println("## Hakemus validointia ##");
+//		if (validoiHakemus(laina))
+//			return "redirect:/lainat"; // laina ok
+//		else
+//			return "redirect:/"; // laina ei ok, mitäs nyt
+//		// palautetaan vain jokin sivu missä on että "Lainahakemus onnistui! Ei
+//		// onnistunut!" ja urli muualle
+//	}
 
 	private boolean validoiHakemus(Laina laina) {
 
 		Asiakas asiakas;
-		asiakas = repo3.findByHenkilotunnus(laina.getAsiakas().getHenkilotunnus());
+		//asiakas = repo3.findByHenkilotunnus(laina.getAsiakas().getHenkilotunnus()); // Turha hifistellä sillä että onko se jo olemassa, uutta vaan vaikak ois sama hetu
 
 		System.out.println("#####################################################################");
 		System.out.println("Finding lainatyypit..");
@@ -103,7 +103,7 @@ public class LainaController {
 			return false;
 		}
 
-		if (asiakas == null) {
+		//if (asiakas == null) {
 			// luodaan asiakas
 			System.out.println(
 					" #####  Creating new asiakas with hetu " + laina.getAsiakas().getHenkilotunnus() + " #####");
@@ -121,9 +121,9 @@ public class LainaController {
 				return false;
 			}
 
-		} else {
-			System.out.println(" #####  Asiakas Found ########");
-		}
+//		} else {
+//			System.out.println(" #####  Asiakas Found ########");
+//		}
 
 		Lainatyyppi lainatyyppi = lainatyypit.get(0);
 		System.out.println("#Creating new laina#");

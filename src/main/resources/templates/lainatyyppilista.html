@@ -7,25 +7,31 @@
 	th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
+
 	<h1>Lainatyypit</h1>
-	<table class="table table-striped">
 		<a th:href="@{/hallinta}">
 			<button class="btn btn-danger">Hallintapaneeli</button>
 		</a>
-		<tr>
-			<td><h4>Lainatyypit</h4></td>
+	<table class="table table-striped">
 
-			<td></td>
-			<td></td>
+		<tr>
+			<td><h4>Tyyppi</h4></td>
+			<td><h4>Korko</h4></td>
+			<td><h4>Maksuaika (kk)</h4></td>
+
 		</tr>
-		<tr th:each="category : ${categories}">
-			<td th:text="${category.name}">Category</td>
-			<td><a th:href="@{/deletecategory/{id}(id=${category.id})}"><button
+		<tr th:each="lainatyyppi : ${lainatyypit}">
+			<td th:text="${lainatyyppi.name}">Category</td>
+			<td th:text="${lainatyyppi.korkoprosentti}+ '%' " +asd>Category</td>
+			<td th:text="${lainatyyppi.maksuaika} +' kk'">Category</td>
+						<td><a th:href="@{/poistalainatyyppi/{id}(id=${lainatyyppi.id})}"><button
 						class="btn btn-danger">Delete</button></a></td>
-			<td><a th:href="@{/editcategory/{id}(id=${category.id})}">Edit</a></td>
+<!-- 			<td><a th:href="@{/editlainatyyppi/{id}(id=${lainatyyppi.id})}">Edit</a></td> -->
+
+
 		</tr>
 	</table>
-	<a href="/addcategory"><button class="btn btn-success">Add
-			Category</button></a>
+	<br>
+	<a href="/addlainatyyppi"><button class="btn btn-success">Lisää lainatyyppi</button></a>
 </body>
 </html>

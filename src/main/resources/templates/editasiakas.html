@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Edit Asiakas</title>
+</head>
+<body>
+	<h2>Edit Asiakas</h2>
+	<!-- Formissa pitää muistaa kulkea puussa taakse päin (../), jos kuljetaan esim. endpointista /editlaina/1 -> /save -->
+	<form action="#" th:action="@{../tallennaasiakas}"
+		th:object="${asiakas}" method="post">
+		<input type="hidden" th:field="*{id}" readonly="readonly" /> <label>Asiakas:</label><br><input
+			type="text" th:field="*{nimi}" /><br> <br>
+		<label>Henkilötunnus:</label><br><input
+			type="text" th:field="*{henkilotunnus}" /><br> <br>
+		<button type="submit">Submit</button>
+	</form>
+</body>
+</html>

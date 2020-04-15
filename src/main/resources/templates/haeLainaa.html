@@ -53,20 +53,6 @@
 	<script>
 		function keraaData() {
 
-// 			console.log(document.getElementById("kulutus1").checked);
-// 			console.log(document.getElementById("kulutus2").checked);
-// 			document.getElementById("etunimi1").value = document
-// 					.getElementById("etunimiID").value;
-// 			document.getElementById("sukunimi1").value = document
-// 					.getElementById("sukunimiID").value
-// 			if (document.getElementById("kulutus1").checked) {
-// 				document.getElementById("lt").value = "Kulutusluotto";
-// 			} else {
-// 				document.getElementById("lt").value = "Käyttölaina";
-// 			}
-// 			document.getElementById("lm").value = document
-// 					.getElementById("myRange").value * 100;
-// 			document.getElementById("datat").submit();
 		}
 		
 	
@@ -76,9 +62,7 @@
 			.getElementById("henkilotunnusID").value
 			
 			
-			document.getElementById("asiakkaanNimi").value = document
-					.getElementById("etunimiID").value
-					+ " " + document.getElementById("sukunimiID").value;
+			document.getElementById("asiakkaanNimi").value =document.getElementById("sukunimiID").value;
 
 			if (document.getElementById("kulutus1").checked) {
 				document.getElementById("lainanTyyppi").value = "Kulutusluotto";
@@ -100,6 +84,9 @@
 	<script>
 		$(document).ready(function() {
 			LaskeKorko();
+			  $("#kulutus1").click(function(){
+				  LaskeKorko();
+				  });
 			// Activate Carousel with a specified interval
 			$("#myCarousel").carousel({
 				interval : 200
@@ -201,8 +188,8 @@
 			<div class="column">
 				<div class="container">
 					<form id="tiedot">
-						Etunimi*: <input type="text" name="etunimi" id="etunimiID"><br>
-						Sukunimi*: <input type="text" name="sukunimi" id="sukunimiID"><br>
+<!-- 						Etunimi*: <input type="text" name="etunimi" id="etunimiID"><br> -->
+						Nimi*: <input type="text" name="sukunimi" id="sukunimiID"><br>
 						Henkilötunnus*: <input type="text" name="lname" id="henkilotunnusID"><br>
 						Osoite: <input type="text" name="lname"><br>
 						Postinumero: <input type="text" name="lname"><br>
@@ -236,7 +223,7 @@
 						<br>
 						<form action="eityhja">
 							<input type="radio" name="kulutus" value="kulutusluotto"
-								checked="checked" id="kulutus1" oninput=LaskeKorko();>
+								checked="checked" id="kulutus1" >
 							Kulutusluotto<br> <input type="radio" name="kulutus"
 								value="k�ytt�laina" id="kulutus2" oninput=LaskeKorko();>
 							Käyttölaina<br>
@@ -266,7 +253,7 @@
 			<input type="hidden" id="asiakkaanNimi" name="asiakas.nimi" value="Testinimi" /> <br> 
 			<input type="hidden" id="henkilotunnus" name="asiakas.henkilotunnus" value="4564564561" /> <br> 
 			<input type="hidden" id="lainanMaara" name="lainanMaara" value="50" /> <br>
-			<input type="hidden" id="lainanTyyppi" name="Lainatyyppi.name" value="Kulutusluotto 2" /> <br>
+			<input type="hidden" id="lainanTyyppi" name="Lainatyyppi.name" value="Kulutusluotto" /> <br>
 			<input type="hidden" id="lainanTyyppi.id" name="Lainatyyppi.id5" value="" /> <br>
 			</form>
 

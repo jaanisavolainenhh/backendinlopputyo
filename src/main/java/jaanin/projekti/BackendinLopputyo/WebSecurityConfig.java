@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			http.authorizeRequests().antMatchers("/**").permitAll();
 		} else {
 			http.authorizeRequests().antMatchers("/css/**").permitAll() // Enable css when logged out
-					.and().authorizeRequests().antMatchers("/", "/kaikki").permitAll()
+					.and().authorizeRequests().antMatchers("/", "/kaikki", "/hallinta").permitAll()
 					// .antMatchers("/", "/add", "/save", "/booklist").permitAll()
 					// .antMatchers("/delete/{id}").hasAuthority("ADMIN")
 					.anyRequest().authenticated().and().formLogin().loginPage("/login")

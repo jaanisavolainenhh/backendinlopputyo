@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>Add new category</title>
-	</head>
-	<body>
-		<h2>Add new category</h2>
-		<form action="#" th:action="@{savecategory}" th:object="${category}" method="post">
-			<label>Category: </label><input type="text" th:field="*{name}" /><br>
-			<button type="submit">Submit</button>
-		</form>
-	</body>
+<head>
+<title>Lisää lainatyyppi</title>
+</head>
+<body>
+	<h2>Lisää lainatyyppiy</h2>
+			<form action="#" th:action="@{tallennalainatyyppi}" th:object="${lainatyyppi}" method="post">
+
+		<label>Nimi: </label><input type="text" th:field="*{name}" /><br>
+		<label>Korkoprosentti: </label><input type="text" th:field="*{korkoprosentti}" /><br>
+		<label>Maksuaika kk: </label><input type="text" th:field="*{maksuaika}" /><br>
+		<button type="submit">Submit</button>
+	</form>
+</body>
 </html>
