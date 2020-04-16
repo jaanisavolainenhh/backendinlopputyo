@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import jaanin.projekti.BackendinLopputyo.webcontroller.AsiakasController;
 import jaanin.projekti.BackendinLopputyo.webcontroller.GeneralController;
 import jaanin.projekti.BackendinLopputyo.webcontroller.LainaController;
-import jaanin.projekti.BackendinLopputyo.webcontroller.UserController;
+import jaanin.projekti.BackendinLopputyo.webcontroller.LainatyyppiController;
 
 @SpringBootTest
 class BackendinLopputyoApplicationTests {
@@ -22,8 +22,10 @@ class BackendinLopputyoApplicationTests {
 
 	@Autowired
 	private LainaController lainacontroller;
+	
 	@Autowired
-	private UserController usercontroller;
+	private LainatyyppiController lainatyyppicontroller;
+
 
 	@Test
 	void contextLoads() {
@@ -42,6 +44,9 @@ class BackendinLopputyoApplicationTests {
 
 	@Test
 	void contextLoads4() {
-		assertThat(usercontroller).isNotNull();
+		assertThat(lainatyyppicontroller).isNotNull();
 	}
+
+
+
 }

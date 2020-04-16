@@ -51,7 +51,13 @@ public class LainatyyppiController {
 	
 	@GetMapping("/poistalainatyyppi/{id}")
 	public String lainaDelete(@PathVariable("id") Long id, Model model) {
+		try {
 		repo.deleteById(id);
+		}
+		catch (Exception e)
+		{
+			
+		}
 		return "redirect:../lainatyypit";
 	}
 	
