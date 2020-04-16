@@ -55,7 +55,7 @@ public class LainaController {
 		}
 		System.out.println("## Hakemus validointia ##");
 		if (validoiHakemus(laina))
-			return "redirect:/lainat"; // laina ok
+			return "redirect:/kaikki"; // laina ok
 		else {
 			model.addAttribute("virheviesti", "Nimi on pakollinen, hetu 10 merkkiä! ");
 			//laitetaan erroriviestinä että hetu tai nimi puuttu
