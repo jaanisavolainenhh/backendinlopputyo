@@ -52,6 +52,24 @@
 
 		}
 		
+		function testaus()
+		{
+			console.log(haeRadio());
+		}
+		
+		function haeRadio()
+		{
+			var coffee = document.forms[1];
+			var txt = "";
+			var i;
+			for (i = 0; i < coffee.length; i++) {
+			  if (coffee[i].checked) {
+				  return coffee[i].value
+			  // console.log(coffee[i].value);
+			  }
+			}
+		}
+		
 	
 		function backendKerays() {
 
@@ -61,15 +79,16 @@
 			
 			document.getElementById("asiakkaanNimi").value =document.getElementById("sukunimiID").value;
 
-			if (document.getElementById("kulutus1").checked) {
-				document.getElementById("lainanTyyppi").value = "Kulutusluotto";
-// 				document.getElementById("lainanTyyppi.id").value = "4";
+// 			if (document.getElementById("kulutus1").checked) {
+// // 				document.getElementById("lainanTyyppi.id").value = "4";
 				
-			} else {
+// 			} else {
 
-				document.getElementById("lainanTyyppi").value = "Käyttölaina";
-// 				document.getElementById("lainanTyyppi.id").value = "5";
-			}
+// 				document.getElementById("lainanTyyppi").value = "Käyttölaina";
+// // 				document.getElementById("lainanTyyppi.id").value = "5";
+// 			}
+			console.log(haeRadio());
+			document.getElementById("lainanTyyppi").value = haeRadio();
 			document.getElementById("lainanMaara").value = document.getElementById("myRange").value * 100;
 			console.log(document.getElementById("lainanMaara").value);
 			//document.getElementById("datat").submit();
@@ -112,6 +131,8 @@
 
 	<script>
 		function LaskeKorko() {
+			return;
+			console.log("laskenta")
 			var aika;
 			var maara;
 			aika = document.getElementById("myRange2").value;
@@ -221,19 +242,28 @@
 							id="myRange2" oninput="showValAika(this.value)"> <br>
 						<br>
 						<form action="eityhja">
-							<input type="radio" name="kulutus" value="kulutusluotto"
-								checked="checked" id="kulutus1" >
-							Kulutusluotto<br> <input type="radio" name="kulutus"
-								value="k�ytt�laina" id="kulutus2" oninput=LaskeKorko();>
-							Käyttölaina<br>
+<!-- 							<input type="radio" name="kulutus" value="kulutusluotto" -->
+<!-- 								checked="checked" id="kulutus1" > -->
+<!-- 							Kulutusluotto<br> <input type="radio" name="kulutus" -->
+<!-- 								value="käyttölaina" id="kulutus2" oninput=LaskeKorko();> -->
+<!-- 							Käyttölaina<br> -->
+							
+						<table>
+								<tr th:each="laina : ${lainat}">
+									<input checked="checked" type="radio" th:value="${laina.name}" name="${laina.name}" onInput=testaus();> [[${laina.name}]]  <br>
+								</tr>
+						</table>
 						</form>
+						
+		
+		
 						<br>
-						<div id="korko">
-							<b>Kuukausierä:</b>
-						</div>
-						<div id="todellinen">
-							<b>Todellinen Hinta</b>
-						</div>
+<!-- 						<div id="korko"> -->
+<!-- 							<b>Kuukausierä:</b> -->
+<!-- 						</div> -->
+<!-- 						<div id="todellinen"> -->
+<!-- 							<b>Todellinen Hinta</b> -->
+<!-- 						</div> -->
 						<br>
 
 					</div>

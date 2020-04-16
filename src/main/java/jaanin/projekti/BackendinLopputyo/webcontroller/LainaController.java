@@ -39,6 +39,7 @@ public class LainaController {
 	@GetMapping("/")
 	public String indexGet(Model model) {
 		Laina laina = new Laina();
+		model.addAttribute("lainat", repo2.findAll());
 		model.addAttribute("laina", laina);
 
 		return "haeLainaa";
@@ -54,47 +55,28 @@ public class LainaController {
 			System.out.println("VIRHEITÄ");
 			return "redirect:/";
 		}
-		System.out.println("## Hakemus validointia ##");
+		// repo.save(laina);
+
+		//
+		// if (false) {
 		if (validoiHakemus(laina))
 			return "redirect:/kaikki"; // laina ok
 		else {
 			model.addAttribute("virheviesti", "Nimi on pakollinen, hetu 10 merkkiä! ");
-			// laitetaan erroriviestinä että hetu tai nimi puuttu
-			// ra.addAttribute("virheviesti", "Nimi on pakollinen, hetu 10 merkkiä! RA PRKL
-			// ");
+
 			System.out.println("Heti tai nimi");
 			return "haeLainaa";
-			// return new RedirectView("/");
+		}
+		// }
+		// return "redirect:/kaikki";
 
-		} // laina ei ok, mitäs nyt
-			// palautetaan vain jokin sivu missä on että "Lainahakemus onnistui! Ei
-			// onnistunut!" ja urli muualle
 	}
 
-//	@ResponseBody
-//	@PostMapping("/hakemus2") // oisko vaan getmappina niin ei tarvi securitya miettiä
-//	public String katsohakemus2(@RequestBody Laina laina) {
-//
-//		System.out.println(laina.toString());
-//
-//		if (true)
-//			return "/";
-//
-//		System.out.println("## Hakemus validointia ##");
-//		if (validoiHakemus(laina))
-//			return "redirect:/lainat"; // laina ok
-//		else
-//			return "redirect:/"; // laina ei ok, mitäs nyt
-//		// palautetaan vain jokin sivu missä on että "Lainahakemus onnistui! Ei
-//		// onnistunut!" ja urli muualle
-//	}
+
 
 	private boolean validoiHakemus(Laina laina) {
 
 		Asiakas asiakas;
-		// asiakas = repo3.findByHenkilotunnus(laina.getAsiakas().getHenkilotunnus());
-		// // Turha hifistellä sillä että onko se jo olemassa, uutta vaan vaikak ois
-		// sama hetu
 
 		System.out.println("#####################################################################");
 		System.out.println("Finding lainatyypit..");
@@ -160,12 +142,11 @@ public class LainaController {
 	}
 
 	@GetMapping("/poistalaina/{id}")
-	public String lainaDelete(@PathVariable("id")Long id, Model model) {
+	public String lainaDelete(@PathVariable("id") Long id, Model model) {
 		try {
-		repo.deleteById(id);
-		} catch (Exception e)
-		{
-			
+			repo.deleteById(id);
+		} catch (Exception e) {
+
 		}
 		return "redirect:../lainat";
 	}
