@@ -1,0 +1,295 @@
+/*kommentti*/
+/* mobile first */
+
+h1 {color:gray;
+    text-shadow: 1px 1px 1px black; /* tekstein heittovarjo */
+    font-family: 'Audiowide', cursive;
+    text-align: center;
+}
+header {
+    background-color: lightgray;
+      display: block;
+  
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+h2 {color:gray;
+   font-family: 'Audiowide', cursive;
+font-size: 18px;
+    text-align:center
+}
+
+body {background-color:whitesmoke;
+    background-image: url(moneyrain.jpg);
+      background-repeat:no-repeat;  /* taustakuva vain yhteen kertaan */
+      background-size:cover;        /* taustakuvan koko */
+      background-attachment: fixed; /* taustakuva kiinnittyy paikalleen*/
+}
+
+main {background-color: ghostwhite;
+    background-color: rgba(255, 255, 255, 0.9);
+      padding:15px; /* sisältö irti reunasta */
+      width:100%;
+      max-width:1232px; 
+      margin:auto; /* keskitys */
+      border: solid 0.5px black;
+      border-radius: 2% 2% 2% 2%;  /* kulman pyristys */
+       /* box-shadow: 20px 20px 20px #5d5926; /* heittovarjo */
+      font-family: 'ABeeZee', sans-serif;
+      font-family: 'ABeeZee', sans-serif;
+      }
+
+nav a {color:black;
+       text-decoration:none;  /*alleviivaus pois */
+       margin: 0px 10px;
+       /* border:solid 1px black; */
+       letter-spacing:1px;
+       padding:10px;
+       width:9em;
+       display: inline-block; 
+       background-color:ghostwhite;
+       /* box-shadow: 5px 5px 8px black; */
+       }
+
+
+nav {
+    background-color: darkgray;
+     text-align:center; /* keskittää linkit */
+     padding: 0px 0px 0px 0px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+
+
+p {line-height: 1.5;  /* riviväli */
+   word-spacing:10px; /* sanan väli */
+   letter-spacing: 3px; /* kirjainväli */
+   font-size:16px; /* fontin koko */
+  }
+.vasen img, .palsta {width:90%;  
+          /* suhteellinen leveys, jotta kuva skaalaantuu*/
+            max-width:300px; /* maksimileveys */
+           }
+.vasen img {border-radius: 30% 0%;
+            border:3px red ridge; /* dotted groove ridge solid */
+           }
+
+.keskitys {
+        text-align:center; /* tekstin ja kuvien */
+        margin:auto; /* keskitys jos tietty leveys */
+}
+
+.vasen {float:left; /* seuraavaan elementtiin nähden vasemmalle */
+         max-width:500px;
+         min-width:300px;
+         margin:20px;
+       }
+
+
+footer { clear:both; /* lopettaa floatin vaikutuksen */
+
+       }
+
+
+
+
+
+
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */ 
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+
+  width: 30px; /* Set a specific slider handle width */
+  height: 30px; /* Slider handle height */
+  background: skyblue; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+.slidecontainer {
+  margin: auto;
+  width: 75%;
+
+    padding: 13px; 
+}
+
+
+* {box-sizing: border-box;}
+body {font-family: Verdana, sans-serif;}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+
+
+
+  .carousel-inner img {
+    width: 100%;
+    min-height:45px;
+    min-width:300px;
+    margin: 0 auto;
+    
+      
+ border: 1px solid black;
+  }
+
+.buttoni {
+    align-items: center;
+    text-align: center;
+    
+}
+
+
+
+    
+
+
+/* haelainaa sivu */
+
+.column {
+  float: left;
+  width: 50%;
+  
+padding-top: 13px;
+  text-align: left;
+  font-size: 12px;
+  cursor: pointer;
+  color: black;
+
+}
+
+.container {
+  width: 90%;
+    min-width: 150px;
+    max-width: 350px;
+
+  
+
+}
+
+.container input {
+  width: 100%;
+
+}
+
+.container-fluid
+{
+    padding-top: 15px;
+}
+
+
+
+.containerTab {
+  padding: 5px;
+  color: white;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+
+}
+
+
+.slidecontainer2 {
+  margin: auto;
+  width: 100%;
+    padding: 3px; 
+}
+
+/* Closable button inside the container tab */
+
+.lahetanappi {
+      
+  width: 100%;
+  padding: 16px;
+  text-align: center;
+  font-size: 20px;
+margin: auto;
+  cursor: pointer;
+  color: black;
+    
+}   
+
+
+.logo {
+    align-self: middle;
+    display: block;
+    margin:auto;
+  width: 75%;
+    padding: 5px;
+
+
+
+}
+
+@media (max-width:600px){
+    .slidecontainer {
+      margin: auto;
+      width: 100%;
+        height: 22  0px;
+        padding: 23px; 
+        min-width: 250px;
+    }
+    .column{
+        
+float: left;
+  width: 100%;
+  padding: 5px;
+  text-align: left;
+  font-size: 12px;
+  cursor: pointer;
+    }
+    
+    .container {
+  width: 100%;
+    min-width: 150px;
+  padding-left: 0px;   
+    }
+    
+    .logo{
+
+        width: 100%;
+    }
+}
+
+.yhteystiedot p {
+      font-size: 10px;
+}
+
+
+.a {
+    
+color:black;
+}
