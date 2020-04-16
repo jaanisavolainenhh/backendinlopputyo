@@ -4,8 +4,8 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <title>Luotto Vippi, kukkaro joka on aina auki</title>
-<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
-	th:href="@{/css/bootstrap.min.css}" />
+<!-- <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" -->
+<!-- 	th:href="@{/css/bootstrap.min.css}" /> -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -179,7 +179,9 @@
 		</p>
 		<h2>Lainatarjous</h2>
 
+ <p th:text="${virheviesti}">Onions</p>
 
+ 
 		<!-- Three columns -->
 		<div class="row">
 			<div class="column">
@@ -242,7 +244,7 @@
 
 		<div style="text-align: center">
 		
-		<form action="#" th:action="@{../hakemus}" th:object="${laina}" method="post" id="datat">
+		<form action="#" th:action="@{../}" th:object="${laina}" method="post" id="datat">
 					<button onclick="backendKerays()">Hae lainaa</button>
 				<a href="/hallinta"> <input type="button"
 					value="Älä hae lainaa" />

@@ -13,10 +13,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jaanin.projekti.BackendinLopputyo.domain.Asiakas;
 import jaanin.projekti.BackendinLopputyo.domain.AsiakasRepository;
@@ -40,12 +40,13 @@ public class LainaController {
 	public String indexGet(Model model) {
 		Laina laina = new Laina();
 		model.addAttribute("laina", laina);
+
 		return "haeLainaa";
 	}
 	// TODO Fixataan nää oikeisiin endpointteihin
 
-	@PostMapping("/hakemus") //
-	public String katsohakemus(@Valid Laina laina, BindingResult bindingResult, Model model) {
+	@PostMapping("/") //
+	public String katsohakemus(@Valid Laina laina, BindingResult bindingResult, Model model, RedirectAttributes ra) {
 
 		System.out.println(laina.toString());
 
@@ -59,7 +60,11 @@ public class LainaController {
 		else {
 			model.addAttribute("virheviesti", "Nimi on pakollinen, hetu 10 merkkiä! ");
 			//laitetaan erroriviestinä että hetu tai nimi puuttu
-			return "redirect:/";
+			//ra.addAttribute("virheviesti", "Nimi on pakollinen, hetu 10 merkkiä! RA PRKL ");
+			System.out.println("Heti tai nimi");
+			return "haeLainaa";
+			//return new RedirectView("/");
+
 		} // laina ei ok, mitäs nyt
 		// palautetaan vain jokin sivu missä on että "Lainahakemus onnistui! Ei
 		// onnistunut!" ja urli muualle
