@@ -40,7 +40,7 @@
 <!-- 			<td th:text="${laina.year}">Year</td> -->
 <!-- 			<td th:text="${laina.price}">Price</td> -->
 			<td sec:authorize="hasAuthority('ADMIN')"><a
-				th:href="@{/delete/{id}(id=${laina.id})}"><button
+				th:href="@{/poistalaina/{id}(id=${laina.id})}"><button
 						class="btn btn-danger">Delete</button></a></td>
 			<td><a th:href="@{/editlaina/{id}(id=${laina.id})}">Edit</a></td>
 		</tr>

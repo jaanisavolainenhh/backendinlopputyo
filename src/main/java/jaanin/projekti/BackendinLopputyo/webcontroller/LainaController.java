@@ -59,15 +59,16 @@ public class LainaController {
 			return "redirect:/kaikki"; // laina ok
 		else {
 			model.addAttribute("virheviesti", "Nimi on pakollinen, hetu 10 merkkiä! ");
-			//laitetaan erroriviestinä että hetu tai nimi puuttu
-			//ra.addAttribute("virheviesti", "Nimi on pakollinen, hetu 10 merkkiä! RA PRKL ");
+			// laitetaan erroriviestinä että hetu tai nimi puuttu
+			// ra.addAttribute("virheviesti", "Nimi on pakollinen, hetu 10 merkkiä! RA PRKL
+			// ");
 			System.out.println("Heti tai nimi");
 			return "haeLainaa";
-			//return new RedirectView("/");
+			// return new RedirectView("/");
 
 		} // laina ei ok, mitäs nyt
-		// palautetaan vain jokin sivu missä on että "Lainahakemus onnistui! Ei
-		// onnistunut!" ja urli muualle
+			// palautetaan vain jokin sivu missä on että "Lainahakemus onnistui! Ei
+			// onnistunut!" ja urli muualle
 	}
 
 //	@ResponseBody
@@ -91,7 +92,9 @@ public class LainaController {
 	private boolean validoiHakemus(Laina laina) {
 
 		Asiakas asiakas;
-		//asiakas = repo3.findByHenkilotunnus(laina.getAsiakas().getHenkilotunnus()); // Turha hifistellä sillä että onko se jo olemassa, uutta vaan vaikak ois sama hetu
+		// asiakas = repo3.findByHenkilotunnus(laina.getAsiakas().getHenkilotunnus());
+		// // Turha hifistellä sillä että onko se jo olemassa, uutta vaan vaikak ois
+		// sama hetu
 
 		System.out.println("#####################################################################");
 		System.out.println("Finding lainatyypit..");
@@ -108,23 +111,23 @@ public class LainaController {
 			return false;
 		}
 
-		//if (asiakas == null) {
-			// luodaan asiakas
-			System.out.println(
-					" #####  Creating new asiakas with hetu " + laina.getAsiakas().getHenkilotunnus() + " #####");
+		// if (asiakas == null) {
+		// luodaan asiakas
+		System.out
+				.println(" #####  Creating new asiakas with hetu " + laina.getAsiakas().getHenkilotunnus() + " #####");
 
-			asiakas = new Asiakas(laina.getAsiakas().getHenkilotunnus(), laina.getAsiakas().getNimi());
+		asiakas = new Asiakas(laina.getAsiakas().getHenkilotunnus(), laina.getAsiakas().getNimi());
 
-			System.out.println("Tallennusyritys");
-			try {
-				repo3.save(asiakas);
-			} catch (TransactionSystemException huoh) {
-				System.out.println("Hhuoh nappas :) ############"); // palauta errorviesti
-				return false;
-			} catch (Exception ex) {
-				System.out.println("Kun kaikki muu hajoo");
-				return false;
-			}
+		System.out.println("Tallennusyritys");
+		try {
+			repo3.save(asiakas);
+		} catch (TransactionSystemException huoh) {
+			System.out.println("Hhuoh nappas :) ############"); // palauta errorviesti
+			return false;
+		} catch (Exception ex) {
+			System.out.println("Kun kaikki muu hajoo");
+			return false;
+		}
 
 //		} else {
 //			System.out.println(" #####  Asiakas Found ########");
@@ -156,22 +159,33 @@ public class LainaController {
 		return repo.findById(id);
 	}
 
-	@GetMapping("/delete/{id}")
-	public String lainaDelete(@PathVariable("id") Long id, Model model) {
+	@GetMapping("/poistalaina/{id}")
+	public String lainaDelete(@PathVariable("id")Long id, Model model) {
+		try {
 		repo.deleteById(id);
+		} catch (Exception e)
+		{
+			
+		}
 		return "redirect:../lainat";
 	}
 
 	// Tää kai vois poistaa
-	@GetMapping("/addlaina")
-	public String addlainaGet(Model model) {
-		model.addAttribute("laina", new Laina());
-		model.addAttribute("lainatyypit", repo2.findAll());
-		return "addlaina";
-	}
+//	@GetMapping("/addlaina")
+//	public String addlainaGet(Model model) {
+//		model.addAttribute("laina", new Laina());
+//		model.addAttribute("lainatyypit", repo2.findAll());
+//		return "addlaina";
+//	}
 
 	@PostMapping("/savelaina")
-	public String savelainaPost(Laina laina) {
+	public String savelainaPost(@Valid Laina laina, BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			System.out.println("VIRHEITÄ");
+			return "redirect:/lainat";
+		}
+
 		try {
 			repo.save(laina);
 		} catch (javax.validation.ConstraintViolationException ex) {
