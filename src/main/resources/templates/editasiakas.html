@@ -7,13 +7,21 @@
 <body>
 	<h2>Edit Asiakas</h2>
 	<!-- Formissa pitää muistaa kulkea puussa taakse päin (../), jos kuljetaan esim. endpointista /editlaina/1 -> /save -->
-	<form action="#" th:action="@{../tallennaasiakas}"
-		th:object="${asiakas}" method="post">
-		<input type="hidden" th:field="*{id}" readonly="readonly" /> <label>Asiakas:</label><br><input
-			type="text" th:field="*{nimi}" /><br> <br>
-		<label>Henkilötunnus:</label><br><input
-			type="text" th:field="*{henkilotunnus}" /><br> <br>
+	<form action="#" th:action="@{../tallennaasiakas}" th:object="${asiakas}" method="post">
+	<table>
+		<input type="hidden" th:field="*{id}" readonly="readonly" /> <label>Asiakas:</label><br>
+		
+		<tr>
+		<input type="text" th:field="*{nimi}" /><br> <br>
+					      <td th:if="${#fields.hasErrors('nimi')}" th:errors="*{nimi}">Error</td>
+		
+		</tr>
+			<tr>
+		<label>Henkilötunnus:</label><br><input type="text" th:field="*{henkilotunnus}" /><br> <br>
+			      <td th:if="${#fields.hasErrors('henkilotunnus')}" th:errors="*{henkilotunnus}">Error</td>
+			</tr>
 		<button type="submit">Submit</button>
+	</table>
 	</form>
 </body>
 </html>

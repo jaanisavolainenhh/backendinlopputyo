@@ -131,10 +131,12 @@ public class LainaController {
 	}
 
 //	// Resti
-//	@RequestMapping(value = "/lainat", method = RequestMethod.GET)
-//	public @ResponseBody List<Laina> lainaListRest() {
-//		return (List<Laina>) repo.findAll();
-//	}
+	@RequestMapping(value = "/rest/lainat", method = RequestMethod.GET)
+	public @ResponseBody List<Laina> lainaListRest() {
+		return (List<Laina>) repo.findAll();
+	}
+	
+	
 
 	@RequestMapping(value = "/laina/{id}", method = RequestMethod.GET)
 	public @ResponseBody Optional<Laina> lainaRest(@PathVariable("id") Long id) {
@@ -164,7 +166,7 @@ public class LainaController {
 
 		if (bindingResult.hasErrors()) {
 			System.out.println("VIRHEITÄ");
-			return "redirect:/lainat";
+			return "redirect:/";
 		}
 
 		try {

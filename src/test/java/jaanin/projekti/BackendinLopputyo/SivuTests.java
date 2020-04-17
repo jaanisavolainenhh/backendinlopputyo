@@ -23,7 +23,7 @@ class SivuTests {
 	@Autowired
 	private MockMvc mockMvc;
 	
-	@Test
+	@Test //juu delliä vaan tälle vittu.
 	public void hellotesti() throws Exception
 	{
         mockMvc.perform(get("")).andExpect(status().isOk()).andExpect(content().string(containsString("Lainatarjous")));

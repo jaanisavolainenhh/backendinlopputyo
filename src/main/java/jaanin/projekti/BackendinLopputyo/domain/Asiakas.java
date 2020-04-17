@@ -19,10 +19,10 @@ public class Asiakas {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Size(min = 10, max = 10)
+	@Size(min = 10, max = 10, message = "Hetun oltava 10 merkkia!")
 	private String henkilotunnus;
 
-	@NotBlank
+	@NotBlank(message = "Nimi ei voi olla tyhjä")
 	private String nimi;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "asiakas")
 	@JsonIgnore // Siirretty tämä Categoryyn jotta saataisiin "oikea" data kirjasta jossa myös

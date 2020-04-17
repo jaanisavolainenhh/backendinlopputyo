@@ -2,19 +2,18 @@ package jaanin.projekti.BackendinLopputyo.webcontroller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jaanin.projekti.BackendinLopputyo.domain.Asiakas;
 import jaanin.projekti.BackendinLopputyo.domain.AsiakasRepository;
-import jaanin.projekti.BackendinLopputyo.domain.Laina;
-import jaanin.projekti.BackendinLopputyo.domain.LainaRepository;
-import jaanin.projekti.BackendinLopputyo.domain.Lainatyyppi;
-import jaanin.projekti.BackendinLopputyo.domain.LainatyyppiRepository;
 
 @Controller
 public class AsiakasController {
@@ -51,7 +50,11 @@ public class AsiakasController {
 	}
 	
 	@PostMapping("/tallennaasiakas")
-	public String saveAsiakas(Asiakas asiakas) {
+	public String saveAsiakas(@Valid Asiakas asiakas, BindingResult bindingResult, Model mode) {
+		
+        if (bindingResult.hasErrors()) {
+        	return "editasiakas";
+        }
 		try {
 			asiakasRepo.save(asiakas);
 		} catch (javax.validation.ConstraintViolationException ex) {

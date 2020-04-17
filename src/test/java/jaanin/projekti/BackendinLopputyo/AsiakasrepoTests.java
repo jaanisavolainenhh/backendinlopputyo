@@ -40,7 +40,13 @@ class AsiakasrepoTests {
 		repository.delete(asiakas);
 		asiakas = repository.findByNimi("Ville Velkavankeus");
 		assertThat(asiakas).isNull();
-		
+	}
+	
+	@Test //muokataan ja tallennetaan?
+	public void edit() throws Exception {
+		Asiakas asiakas = repository.findByNimi("Ville Velkavankeus");
+		assertThat(asiakas.getId()).isNotNull();
+	
 	}
 
 }
