@@ -60,9 +60,11 @@ public class BackendinLopputyoApplication {
 			lainat.save(new Laina(asiakas2,lainatyyppi2, 2000));
 			lainat.save(new Laina(asiakas3,lainatyyppi3, 3000));
 			//TODO Thymeleafiin fixaukset
-			User user1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER", "email@email.com");
-			User user2 = new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN", "posti@posti.com");
-			userit.save(user1);
+			//User user1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER", "email@email.com");
+			//User user2 = new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN", "posti@posti.com");
+			User user2 = new User("admin", "$2a$10$g91l/ADAQ0sG9m9l7T4nlOcFqUNtstjrmvzvwOOtNy4snftB1b.J.", "ADMIN", "posti@posti.com"); //turvallinensalasana
+			
+			//userit.save(user1);
 			userit.save(user2);
 
 			for (Laina book : lainat.findAll()) {
