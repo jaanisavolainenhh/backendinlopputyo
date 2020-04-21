@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			http.csrf().disable(); //enabloi deleten käyttämisen
 			http.authorizeRequests().antMatchers("/**").permitAll();
 		} else {
+			//http.csrf().disable(); 
 			http.authorizeRequests().antMatchers("/css/**").permitAll() // Enable css when logged out
 					.and().authorizeRequests().antMatchers("/", "/kaikki", "/hallinta", "/rest/**").permitAll()
 					// .antMatchers("/", "/add", "/save", "/booklist").permitAll()

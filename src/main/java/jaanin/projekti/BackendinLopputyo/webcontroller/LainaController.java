@@ -2,12 +2,14 @@ package jaanin.projekti.BackendinLopputyo.webcontroller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
-import javax.persistence.RollbackException;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.TransactionSystemException;
@@ -26,10 +28,12 @@ import jaanin.projekti.BackendinLopputyo.domain.Laina;
 import jaanin.projekti.BackendinLopputyo.domain.LainaRepository;
 import jaanin.projekti.BackendinLopputyo.domain.Lainatyyppi;
 import jaanin.projekti.BackendinLopputyo.domain.LainatyyppiRepository;
-
 @Controller
 public class LainaController {
 
+	private static final Logger logger = LoggerFactory.getLogger(LainaController.class);
+
+	
 	@Autowired
 	private LainaRepository repo;
 	@Autowired
@@ -39,7 +43,8 @@ public class LainaController {
 	private AsiakasRepository repo3;
 
 	@GetMapping("/")
-	public String indexGet(Model model) {
+	public String indexGet(Model model, Locale locale) {
+		logger.info(locale.toString());
 		Laina laina = new Laina();
 		model.addAttribute("lainat", repo2.findAll());
 		model.addAttribute("laina", laina);
@@ -51,7 +56,7 @@ public class LainaController {
 	@PostMapping("/") //periaattessa tässä voisi postaa lainatyypin, asiakkaan ja lainan ominaan niin sais suoraan validation checkit  mutta mennään nyt vaikeammalla tavalla.
 	public String katsohakemus(@Valid Laina laina, BindingResult bindingResult, Model model) {
 
-		if (bindingResult.hasErrors()) { // Tämä tarkastaa vain lainaanmäärän, asiakkaassa ja lainatyypissä voi olla											// virheitä annotaatioista huolimatta joten ne pitää tarkistaa erikseen
+		if (bindingResult.hasErrors()) { // Tämä tarkastaa vain lainaanmäärän, asiakkaassa ja lainatyypissä voi olla vääriä tietoja ja ne tsekataan manuaalisesti											// virheitä annotaatioista huolimatta joten ne pitää tarkistaa erikseen
 			return "haeLainaa";
 		}
 
@@ -67,6 +72,7 @@ public class LainaController {
 
 	}
 
+	//palauttaa listana virheilmoitukset koska manuaalinen validointi
 	private List<String> validoiHakemus(Laina laina) {
 
 		List<String> herjat = new ArrayList<>();
@@ -89,7 +95,6 @@ public class LainaController {
 			if(jee.getConstraintViolations().toString().toLowerCase().contains("nimi"))
 				herjat.add("Nimi puuttuu!");
 			
-			System.out.println("Hhuoh nappas :) ############"); // palauta errorviesti
 		} catch (Exception ex) {
 			System.out.println("Kun kaikki muu hajoo");
 		}
@@ -113,6 +118,9 @@ public class LainaController {
 	public @ResponseBody List<Laina> lainaListRest() {
 		return (List<Laina>) repo.findAll();
 	}
+	
+
+
 
 	@RequestMapping(value = "/laina/{id}", method = RequestMethod.GET)
 	public @ResponseBody Optional<Laina> lainaRest(@PathVariable("id") Long id) {
