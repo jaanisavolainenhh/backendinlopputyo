@@ -1,8 +1,11 @@
 package jaanin.projekti.BackendinLopputyo.webcontroller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.RollbackException;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jaanin.projekti.BackendinLopputyo.domain.Asiakas;
 import jaanin.projekti.BackendinLopputyo.domain.AsiakasRepository;
@@ -46,82 +48,58 @@ public class LainaController {
 	}
 	// TODO Fixataan nää oikeisiin endpointteihin
 
-	@PostMapping("/") //
-	public String katsohakemus(@Valid Laina laina, BindingResult bindingResult, Model model, RedirectAttributes ra) {
+	@PostMapping("/") //periaattessa tässä voisi postaa lainatyypin, asiakkaan ja lainan ominaan niin sais suoraan validation checkit  mutta mennään nyt vaikeammalla tavalla.
+	public String katsohakemus(@Valid Laina laina, BindingResult bindingResult, Model model) {
 
-		System.out.println(laina.toString());
-
-		if (bindingResult.hasErrors()) {
-			System.out.println("VIRHEITÄ");
-			return "redirect:/";
-		}
-		// repo.save(laina);
-
-		//
-		// if (false) {
-		if (validoiHakemus(laina))
-			return "redirect:/kaikki"; // laina ok
-		else {
-			model.addAttribute("virheviesti", "Nimi on pakollinen, hetu 10 merkkiä! ");
-
-			System.out.println("Heti tai nimi");
+		if (bindingResult.hasErrors()) { // Tämä tarkastaa vain lainaanmäärän, asiakkaassa ja lainatyypissä voi olla											// virheitä annotaatioista huolimatta joten ne pitää tarkistaa erikseen
 			return "haeLainaa";
 		}
-		// }
-		// return "redirect:/kaikki";
+
+		if (validoiHakemus(laina).size() == 0)
+			return "redirect:/kaikki"; // laina ok, siirrytään megalistaan.
+		else {
+	
+			model.addAttribute("lainat", repo2.findAll());
+			model.addAttribute("laina", laina);
+			model.addAttribute("virheviesti", validoiHakemus(laina).toString());
+			return "haeLainaa";
+		}
 
 	}
 
+	private List<String> validoiHakemus(Laina laina) {
 
-
-	private boolean validoiHakemus(Laina laina) {
-
-		Asiakas asiakas;
-
-		System.out.println("#####################################################################");
-		System.out.println("Finding lainatyypit..");
-		List<Lainatyyppi> lainatyypit;
-		lainatyypit = repo2.findByName(laina.getLainatyyppi().getName());
-
-		if (lainatyypit.size() == 0) {
-			System.out.println("Lainatyyppiä " + laina.getLainatyyppi().getName() + " ei löytynyt");
-			return false; // lainatyyppiä ei ole olemassa tai lainanmäärä on 0 tai alle
+		List<String> herjat = new ArrayList<>();
+		Lainatyyppi lainatyyppi = repo2.findByName(laina.getLainatyyppi().getName());
+		if (lainatyyppi == null) {
+			System.out.println("Ei lainatyyppiä");
+			herjat.add("Ei lainatyyppiä");
 		}
-
-		if (laina.getLainanMaara() <= 0) {
-			System.out.println("Invalid lainanmäärä");
-			return false;
-		}
-
-		// if (asiakas == null) {
-		// luodaan asiakas
-		System.out
-				.println(" #####  Creating new asiakas with hetu " + laina.getAsiakas().getHenkilotunnus() + " #####");
-
-		asiakas = new Asiakas(laina.getAsiakas().getHenkilotunnus(), laina.getAsiakas().getNimi());
-
-		System.out.println("Tallennusyritys");
+		Asiakas asiakas = new Asiakas(laina.getAsiakas().getHenkilotunnus(), laina.getAsiakas().getNimi());
 		try {
 			repo3.save(asiakas);
-		} catch (TransactionSystemException huoh) {
+		} 
+		catch (TransactionSystemException huoh) { //Tässä teen nyt oman validator checkerin omalla tyylillä koska ei aika tai osaaminen riitä tarkempaan perehtymiseen
+			ConstraintViolationException jee = (ConstraintViolationException) huoh.getRootCause();
+			System.out.println(jee.getConstraintViolations());
+			
+			if(jee.getConstraintViolations().toString().toLowerCase().contains("hetu")) //katsotaan onko violationeissa hetu sanaa joka löytyy asikas taulun validationin messagesta
+					herjat.add("Hetun oltava 10 merkkiä");
+			
+			if(jee.getConstraintViolations().toString().toLowerCase().contains("nimi"))
+				herjat.add("Nimi puuttuu!");
+			
 			System.out.println("Hhuoh nappas :) ############"); // palauta errorviesti
-			return false;
 		} catch (Exception ex) {
 			System.out.println("Kun kaikki muu hajoo");
-			return false;
 		}
 
-//		} else {
-//			System.out.println(" #####  Asiakas Found ########");
-//		}
-
-		Lainatyyppi lainatyyppi = lainatyypit.get(0);
-		System.out.println("#Creating new laina#");
+		if(herjat.size() > 0) //ei lisätä uutta lainaa koska oli jotain validation hässäkkää
+			return herjat; //palautetaan kaikki herjat
+					
 		Laina uusiLaina = new Laina(asiakas, lainatyyppi, laina.getLainanMaara());
-
-		repo.save(uusiLaina);
-		System.out.println("################################");
-		return true;
+		repo.save(uusiLaina); //tämä on validoitu jo aikaisemmasa functiossa
+		return herjat; //palautetaan herjat mutta näitä ei käytetä koska pituus 0.
 	}
 
 	@GetMapping("/lainat")
@@ -135,8 +113,6 @@ public class LainaController {
 	public @ResponseBody List<Laina> lainaListRest() {
 		return (List<Laina>) repo.findAll();
 	}
-	
-	
 
 	@RequestMapping(value = "/laina/{id}", method = RequestMethod.GET)
 	public @ResponseBody Optional<Laina> lainaRest(@PathVariable("id") Long id) {

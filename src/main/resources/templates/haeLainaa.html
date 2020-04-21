@@ -280,8 +280,12 @@
 					value="Älä hae lainaa" />
 				</a>
 			<input type="hidden" id="asiakkaanNimi" name="asiakas.nimi" value="Testinimi" /> <br> 
+			<td th:if="${#fields.hasErrors('asiakas.nimi')}" th:errors="*{asiakas.nimi}">Error</td>
+			
 			<input type="hidden" id="henkilotunnus" name="asiakas.henkilotunnus" value="4564564561" /> <br> 
 			<input type="hidden" id="lainanMaara" name="lainanMaara" value="50" /> <br>
+						<td th:if="${#fields.hasErrors('lainanMaara')}" th:errors="*{lainanMaara}">Error</td>
+			
 			<input type="hidden" id="lainanTyyppi" name="Lainatyyppi.name" value="Kulutusluotto" /> <br>
 			<input type="hidden" id="lainanTyyppi.id" name="Lainatyyppi.id5" value="" /> <br>
 			</form>
