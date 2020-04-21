@@ -23,6 +23,7 @@ class AsiakasrepoTests {
 	public void search() throws Exception {
 		Asiakas asiakas = repository.findByNimi("Ville Velkavankeus");
 		assertThat(asiakas.getId()).isNotNull();
+		assertThat(asiakas.getNimi()).isEqualTo("Ville Velkavankeus");
 	}
 
 	@Test

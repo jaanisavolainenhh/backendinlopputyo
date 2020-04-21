@@ -43,8 +43,8 @@ public class LainaController {
 	private AsiakasRepository repo3;
 
 	@GetMapping("/")
-	public String indexGet(Model model, Locale locale) {
-		logger.info(locale.toString());
+	public String indexGet(Model model) {
+		//logger.info(locale.toString());
 		Laina laina = new Laina();
 		model.addAttribute("lainat", repo2.findAll());
 		model.addAttribute("laina", laina);
@@ -122,7 +122,7 @@ public class LainaController {
 
 
 
-	@RequestMapping(value = "/laina/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/rest/laina/{id}", method = RequestMethod.GET)
 	public @ResponseBody Optional<Laina> lainaRest(@PathVariable("id") Long id) {
 		return repo.findById(id);
 	}

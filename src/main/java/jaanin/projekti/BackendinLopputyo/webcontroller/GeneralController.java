@@ -34,8 +34,8 @@ public class GeneralController {
 
 
 	@GetMapping("/kaikki")
-	public String kaikkiGet(Model model,Locale locale) {
-		System.out.println(locale.toString());
+	public String kaikkiGet(Model model) {
+		//System.out.println(locale.toString());
 		model.addAttribute("lainatyypit", repo2.findAll());
 		model.addAttribute("lainat", repo.findAll());
 		model.addAttribute("asiakkaat", repo3.findAll());

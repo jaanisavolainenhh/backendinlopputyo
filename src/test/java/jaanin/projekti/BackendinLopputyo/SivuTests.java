@@ -26,8 +26,14 @@ class SivuTests {
 	@Test //juu delliä vaan tälle vittu.
 	public void hellotesti() throws Exception
 	{
-        mockMvc.perform(get("")).andExpect(status().isOk()).andExpect(content().string(containsString("Lainatarjous")));
+        mockMvc.perform(get("/")).andExpect(content().string(containsString("Lainatarjous")));
 	}	
+//	
+//	@Test
+//	public void greetingShouldReturnDefaultMessage() throws Exception {
+//		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
+//				String.class)).contains("Hello, World");
+//	}
 
 
 }
