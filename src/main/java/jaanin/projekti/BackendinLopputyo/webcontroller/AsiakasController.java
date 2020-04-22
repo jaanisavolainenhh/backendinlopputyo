@@ -52,7 +52,7 @@ public class AsiakasController {
 	@GetMapping("/addasiakas")
 	public String addAsiakas(Model model) {
 		model.addAttribute("asiakas", new Asiakas());
-		return "addasiakas";
+		return "editasiakas";
 	}
 
 	@GetMapping("/editasiakas/{id}")

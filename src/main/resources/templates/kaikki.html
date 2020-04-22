@@ -3,22 +3,42 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
+<div class="col-md-4" style="width: 200px;">
+	<select id="locales" class="form-control form-control-sm">
+			<option  value="" th:text="#{lang.change}"></option>
+		<option value="fi" th:text="#{lang.fi}"></option>
+		<option value="us" th:text="#{lang.us}"></option>
+	</select>
+</div>
+
 <title>KAIKKI</title>
 <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
 	th:href="@{/css/bootstrap.min.css}" />
-	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
 </head>
 <body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
-</script>
-
-<h1 th:text="#{greeting}"></h1>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+		
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#locales").change(function() {
+				var selectedOption = $('#locales').val();
+				if (selectedOption != '') {
+					window.location.replace('kaikki?lang=' + selectedOption);
+					console.log("jee")
+				}
+			});
+		});
+	</script>
+	<h1 th:text="#{greeting}"></h1>
 	<h1>Dataa</h1>
 	<div class="col-md-4"></div>
 	<a th:href="@{/hallinta}"><button class="btn btn-danger">Hallintapaneeli</button></a>
 
-<h1 th:text="#{loans}"></h1>
+	<h1 th:text="#{loans}"></h1>
 
 	<table class="table table-striped">
 		<tr>
@@ -51,7 +71,7 @@
 	</table>
 
 
-<h1 th:text="#{loantypes}"></h1>
+	<h1 th:text="#{loantypes}"></h1>
 
 
 	<table class="table table-striped">
@@ -66,8 +86,6 @@
 			<td th:text="${lainatyyppi.name}">Category</td>
 			<td th:text="${lainatyyppi.korkoprosentti}+ '%' " +asd>Category</td>
 			<td th:text="${lainatyyppi.maksuaika} +' kk'">Category</td>
-
-
 		</tr>
 	</table>
 

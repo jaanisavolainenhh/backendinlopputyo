@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Edit Asiakas</title>
+<title>Add Asiakas</title>
 </head>
 <body>
-	<h2>Edit Asiakas</h2>
+	<h2>Add Asiakas</h2>
 	<!-- Formissa pitää muistaa kulkea puussa taakse päin (../), jos kuljetaan esim. endpointista /editlaina/1 -> /save -->
 	<form action="#" th:action="@{../tallennaasiakas}" th:object="${asiakas}" method="post">
 	<table>

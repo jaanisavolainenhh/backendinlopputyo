@@ -5,13 +5,30 @@
 <title>Lisää lainatyyppi</title>
 </head>
 <body>
-	<h2>Lisää lainatyyppiy</h2>
-			<form action="#" th:action="@{tallennalainatyyppi}" th:object="${lainatyyppi}" method="post">
-
-		<label>Nimi: </label><input type="text" th:field="*{name}" /><br>
-		<label>Korkoprosentti: </label><input type="text" th:field="*{korkoprosentti}" /><br>
-		<label>Maksuaika kk: </label><input type="text" th:field="*{maksuaika}" /><br>
-		<button type="submit">Submit</button>
+	<h2>Lisää lainatyyppi</h2>
+	<form action="#" th:action="@{tallennalainatyyppi}"
+		th:object="${lainatyyppi}" method="post">
+		<table>
+			<tr>
+				<label>Nimi: </label>
+				<input type="text" th:field="*{name}" />
+				<br>
+				<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</td>
+			</tr>
+			<tr>
+				<label>Korkoprosentti: </label>
+				<input type="number" th:field="*{korkoprosentti}" step="0.01" />
+				<br>
+						<td th:if="${#fields.hasErrors('korkoprosentti')}" th:errors="*{korkoprosentti}">Error</td>
+			</tr>
+			<tr>
+				<label>Maksuaika kk: </label>
+				<input type="number" th:field="*{maksuaika}" />
+				<br>
+						<td th:if="${#fields.hasErrors('maksuaika')}" th:errors="*{maksuaika}">Error</td>
+			</tr>
+			<button type="submit">Submit</button>
+		</table>
 	</form>
 </body>
 </html>

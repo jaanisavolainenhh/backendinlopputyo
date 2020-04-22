@@ -36,6 +36,11 @@ public class LainatyyppiController {
 //	
 	@PostMapping("/tallennalainatyyppi")
 	public String saveCategory(@Valid Lainatyyppi laina,BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			return "addlainatyyppi";
+		}
+		
 		try {
 			repo.save(laina);
 		} catch (javax.validation.ConstraintViolationException ex) {

@@ -19,13 +19,13 @@ public class Lainatyyppi {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	@NotBlank
+	@NotBlank(message = "Lainatyypillä tulee olla nimi")
 	private String name;
 	
-	@Positive
+	@Positive(message = "Korkoprosentin tulee olla positiivinen")
 	private double korkoprosentti;
 	
-	@Positive
+	@Positive(message = "Maksuajan tulee olla positiivinen")
 	private int maksuaika; //kk
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "lainatyyppi")
